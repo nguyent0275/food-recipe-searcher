@@ -1,7 +1,7 @@
 // document on ready
 $(function() {
     let requestURL = 'https://api.edamam.com/api/recipes/v2?per_page=1&type=public&q=chicken&app_id=47a9652c&app_key=ff96e3cd2cbbce2cf5d87436ee7f0c2d';
-
+    
     async function loadRecipes() {
         let response = await fetch(requestURL);
         let jsonData = await response.json();
@@ -12,7 +12,7 @@ $(function() {
 
 
 // EDAMAM API important object and key:value returns 
-// hits = different recipes (20 per page request)
+// hits[0-19] = different recipes (20 per page request)
     //  recipe = name of recipe 
         // images > thumbnail/small/regular
         // source = name of website that the recipe is located
