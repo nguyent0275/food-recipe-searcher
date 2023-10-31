@@ -9,22 +9,37 @@
 <body>
 
     <!-- RECIPE SEARCH FIELD -->
-    <!-- HTML HARD CODED -->
         <!-- header with name of the app -->
+        <h1>What's For Dinner</h1>
         <!-- div container for the recipe searcher -->
-        <!-- p tag that explains how to use the recipe searcher -->
-        <!-- input field that searches for user inputted ingredients -->
-        <!-- a div container that stores the ingredients -->
-        <!-- a <ul> that stores the ingredients as <li> -->
-        <!-- a div container that contains filters -->
-        <!-- buttons that filter recipes based on certain criterias -->
+        <div id="recipe-searcher">
+            <p>This is how you use the applications (placeholder text)</p>
+            <form>
+                <input type="text" class="user-ingredient">
+                <button>Submit</button>
+            </form>
+        </div>
+        <div id="ingredients-div">
+            <ul id="ingredient-list">
+                <!-- <li> create <li> elements based on user input values and append to <ul> -->
+            </ul>
+        </div>
+        <div id="filters-div">
+            <button>Filter1</button>
+            <button>Filter2</button>
+            <button>Filter3</button>
+            <button>Filter4</button>
+        </div>
 
-
-
+    <!-- SAVED RECIPES FIELD (MAX OF 5) -->
+        <div id="saved-recipe-container">
+            <!-- uses javascript to create a <div> for recipe name / <img> for recipe picture / add an <a> to image to link to website -->
+        </div>
 
     <!-- RECIPE RETURN FIELD -->
-        <!-- a div container for recipe results based on search -->
-        <!-- an h1 tag that returns the number of recipes found  -->
+        <div id="recipe-container">
+            <h1># of recipes</h1>
+        </div>
     <!-- JAVASCRIPT CODED -->
         <!-- line 24-28 should be in a for loop for javascript -->
         <!-- seperate div containers for each recipe returned  -->
@@ -37,25 +52,25 @@
 
 
     <!-- RANDOM RECIPES TO TRY -->
-    <!-- HTML HARD CODED -->
-        <!-- div container for random recipes -->
-        <!-- h1 tag describing that these recipes are random -->
-        <!-- 3 div containers for random recipes -->
-    <!-- JAVASCRIPT CODED -->
+    <div id="random-recipe-container">
+        <h1>Try these 3 random recipes</h1>
+        <!-- JAVASCRIPT CODED -->
         <!-- line 36-37 should be in a forloop that generates 3 random recipes and store them to html-->
         <!-- images for random recipe with clickable area that redirects to recipe website -->
         <!-- a p tag that has the name of the recipe underneatht the image -->
+        <div class="random-recipes">
+            
+        </div>
+        <div class="random-recipes">
 
-    <ul>
-        <li>Milk</li>
-        <li>Chicken</li>
-        <li>Water</li>
-        <li>Banana</li>
-        <li>Pepper</li>
-        <li>Rice</li>
-    </ul>
-    
+        </div>
+        <div class="random-recipes">
+
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assets/js/edamam.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
