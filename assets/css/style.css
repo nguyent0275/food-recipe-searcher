@@ -2,13 +2,39 @@
 
 
 header {
-    padding: 3%;
-    margin-bottom: 2%;
+    padding: 2%;
     text-align: center;
     font-size: 150%;
+}
+
+.columns {
+    border: 1px solid black;
 }
 
 .column {
     border: 1px solid black;
     padding: 2%;
+}
+
+h1 {
+    font-weight: bolder;
+}
+
+h3 {
+    padding-bottom: 2%;
+    font-weight: bolder;
+}
+
+input {
+    width: 50%;
+    padding: 1%;
+    font-size: 100%;
+}
+
+#searchBtn {
+    padding: 1%;
+}
+
+.option {
+    color: blue;
 }
