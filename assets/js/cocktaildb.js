@@ -1,6 +1,6 @@
 // document on ready
 $(function() {
-    let requestURL = 'https://api.edamam.com/api/recipes/v2?per_page=1&type=public&q=chicken&app_id=47a9652c&app_key=ff96e3cd2cbbce2cf5d87436ee7f0c2d';
+    let requestURL = 'http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka';
     
     async function loadRecipes() {
         let response = await fetch(requestURL);
