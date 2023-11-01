@@ -1,30 +1,28 @@
 // document on ready (add document on ready later / was not establishing variables correctly inside of it )
 // $(function() {
 
-let requestURL = "https://api.edamam.com/api/recipes/v2?";
+let apiURL = "https://api.edamam.com/api/recipes/v2?";
 let searchParameters = {
-    per_page: 1,
-    type: "public",
-    app_id: "47a9652c",
-    app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d"
-}
+  per_page: 1,
+  type: "public",
+  app_id: "47a9652c",
+  app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d",
+};
 let searchWords = $(".ingredients");
-let searchQuery = Array.from(searchWords).map(e => e.innerText).join(' ')
-searchParameters.q = searchQuery
-let searchURL = requestURL + new URLSearchParams(searchParameters);
-console.log("🚀 ~ file: edamam.js:9 ~ searchURL:", searchURL)
+let searchQuery = Array.from(searchWords)
+  .map((e) => e.innerText)
+  .join(" ");
+searchParameters.q = searchQuery;
+let requestURL = apiURL + new URLSearchParams(searchParameters);
+console.log("🚀 ~ file: edamam.js:9 ~ searchURL:", requestURL);
 
 async function loadRecipes() {
   let response = await fetch(requestURL);
   let jsonData = await response.json();
   console.log(Object.keys(jsonData));
   console.log(jsonData.hits[0].recipe.label);
-  loadRecipes();
 }
-
-
-// searchWords.forEach(searchWords => console.log(searchWords.innerText))
-
+loadRecipes();
 
 // document on ready ending
 // });
@@ -55,21 +53,18 @@ async function loadRecipes() {
 // let ingredientsList = $(ulIngredients)
 
 // need a function that creates a li and takes the ingredients.value to create/append to the ulIngredients
-
-// need an async function that takes ingredients.value and stringconcat with "+" in between each value and add it to url after "q=". Then make the fetch off that concatination.
-
-// $(function() {
-//     let requestURL = 'https://api.edamam.com/api/recipes/v2?per_page=1&type=public&q={ingredients.value}+{ingrdients.value}&app_id=47a9652c&app_key=ff96e3cd2cbbce2cf5d87436ee7f0c2d';
-// let ingredientsURL = $("ingredientsList").children().value.JSONstringify().
-
-//     async function loadRecipes() {
-//         let response = await fetch(requestURL);
-//         let jsonData = await response.json();
-//         console.log(Object.keys(jsonData))
-//         console.log(jsonData.hits[0].recipe.label);
-//     }
-// });
-
+renderIngredients
+$('#submit').on("click", renderIngredients)
+function renderIngredients(event) {
+    event.preventDefault
+    // $('user-ingredient').value
+    //create
+    console.log("working")
+    // $('<li>').text($('user-ingredient').value)
+    //attr
+    //append
+    $('#ingredient-list').append($('<li>').text($('user-ingredient').value))
+}
 // need a function that applies a filter on the search based on pre-existing criterias (append the function as a button to said crtierias)
 // search via healthLabels and return recipes that match
 
