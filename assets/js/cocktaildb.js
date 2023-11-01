@@ -1,14 +1,60 @@
 // document on ready
+// /images/media/drink/vrwquq1478252802.jpg/preview (100x100 pixels OR 350x350 pixels) IMAGES FROM API
 $(function() {
-    let requestURL = 'http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka';
+    var requestURL = 'https://thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
+    var imageURL =  '/images/media/drink/vrwquq1478252802.jpg/preview (350x350 pixels)'
+    var mainEl = 
     
-    async function loadRecipes() {
-        let response = await fetch(requestURL);
-        let jsonData = await response.json();
+    async function loadCocktails() {
+        var response = await fetch(requestURL);
+        var jsonData = await response.json();
         console.log(Object.keys(jsonData))
         console.log(jsonData.hits[0].recipe.label);
     }
 });
+
+function firstFetch(user) {
+    $.get(requestURL + user, function (data) {
+      console.log(data);
+      var image = data.imageURL;
+      var repoUrl = data.repos_url;
+  
+      var imgEl = $('<img>');
+  
+      imgEl.attr({
+        alt: "avatar",
+        src: image
+      });
+  
+      mainEl.append(imgEl);
+  
+      reposFetch(repoUrl);
+    });
+  }
+  
+  function reposFetch(url) {
+    $.get(url, function (data) {
+      console.log(data); // repo data
+  
+      for (var i = 0; i < data.length; i++) {
+        console.log(data[i].name);
+  
+        var name = data[i].name;
+  
+        var pEl = $('<p>');
+  
+        pEl.text(name);
+  
+        mainEl.append(pEl);
+      }
+    });
+  }
+  
+  var requestURL = 'https://thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
+  var userName = 'exampleUser';
+  var cocktailList = $('#cocktail-list'); // You should replace this with the actual element you want to append to
+  
+  firstFetch(userName);
 
 
 // EDAMAM API important object and key:value returns 
