@@ -8,6 +8,7 @@ $(function() {
         console.log(Object.keys(jsonData))
         console.log(jsonData.hits[0].recipe.label);
     }
+    loadRecipes()
 });
 
 
