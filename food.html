@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>What's For Dinner (FOOD)</title>
+  </head>
+  <body>
+    <!-- RECIPE SEARCH FIELD -->
+    <!-- header with name of the app -->
+    <h1>What's For Dinner (FOOD)</h1>
+    <!-- div container for the recipe searcher -->
+    <div id="recipe-searcher">
+      <p>This is how you use the applications (placeholder text)</p>
+      <form>
+        <input type="text" id="user-ingredient" />
+        <button id="add">Add</button>
+      </form>
+    </div>
+    <div id="ingredients-div">
+      <ul id="ingredient-list">
+        <li class="ingredients">buns</li>
+        <li class="ingredients">ground beef</li>
+        <li class="ingredients">lettuce</li>
+        <li class="ingredients">tomatoes</li>
+        <li class="ingredients">onions</li>
+        <li class="ingredients">potato chips</li>
+        <!-- <li> create <li> elements based on user input values and append to <ul> -->
+      </ul>
+    </div>
+    <div id="filters-div">
+      <input type="checkbox" id="vegetarian" name="vegetarian">
+      <label for="vegetarian">Vegetarian</label>
+      <input type="checkbox" id="vegan" name="vegan">
+      <label for="vegan">Vegan</label>
+      <input type="checkbox" id="dairy-free" name="dairy-free">
+      <label for="dairy-free">Dairy-Free</label>
+      <input type="checkbox" id="gluten-free" name="gluten-free">
+      <label for="gluten-free">Gluten-Free</label>
+    </div>
+    <button id="submit">Submit</button>
+
+    <!-- SAVED RECIPES FIELD (MAX OF 5) -->
+    <div id="saved-recipe-container">
+      <!-- uses javascript to create a <div> for recipe name / <img> for recipe picture / add an <a> to image to link to website -->
+    </div>
+
+    <!-- RECIPE RETURN FIELD -->
+    <div id="recipe-container">
+      <h1># of recipes</h1>
+    </div>
+    <!-- JAVASCRIPT CODED -->
+    <!-- line 24-28 should be in a for loop for javascript -->
+    <!-- seperate div containers for each recipe returned  -->
+    <!-- h2 tag that contains recipe name / include href to website with full recipe -->
+    <!-- p tag or multiple <li> that contians a short list of ingredients (preferably main and important ingredients / returns the ingredients that make up most of the dish?) -->
+    <!-- a <ul> that contains <li> about additional information regarding the dish-->
+    <!-- <li> with cook time / serving size / and criteria filters -->
+
+    <!-- RANDOM RECIPES TO TRY -->
+    <div id="random-recipe-container">
+      <h1>Try these 3 random recipes</h1>
+      <!-- JAVASCRIPT CODED -->
+      <!-- line 36-37 should be in a forloop that generates 3 random recipes and store them to html-->
+      <!-- images for random recipe with clickable area that redirects to recipe website -->
+      <!-- a p tag that has the name of the recipe underneatht the image -->
+      <div class="random-recipes"></div>
+      <div class="random-recipes"></div>
+      <div class="random-recipes"></div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./assets/js/edamam.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

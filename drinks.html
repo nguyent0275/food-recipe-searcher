@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Eat Drink & Be Merry!</title>
+</head>
+<body>              
+<header>
+    <h1>What's for Dinner?</h1>
+</header>
+
+
+<div class="columns">
+    <div class="column is-one-quarter"><!--This is the left column showing previos items-->
+        <h2>Past Recipes & Cocktails</h2>
+    </div>
+    <div class="column"><!--This is the part of the page that shows search results-->
+        <div class="columns">
+            <div class="column">
+                <h3>Let's get you some ideas!</h3>
+                <form>
+                    <input placeholder="What are you hungry for?">
+                    <button id="searchBtn">
+                        Inspire me!
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="columns">
+            <div class="column option">
+                <p>option 1</p>
+            </div>
+            <div class="column option">
+                <p>option 2</p>   
+            </div>
+            <div class="column option">
+                <p>option 3</p>   
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column option">
+                <p>option 4</p>
+            </div>
+            <div class="column option">
+                <p>option 5</p>   
+            </div>
+            <div class="column option">
+                <p>option 6</p>   
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- RECIPE SEARCH FIELD -->
+        <!-- header with name of the app -->
+        <h1>Cocktails with Dinner</h1>
+        <!-- div container for the recipe searcher -->
+        <div id="cocktail">
+            <p>Search type of alcohol and get a fun cocktail</p>
+            <form>
+                <input type="text" class="user-ingredient">
+                <button>Submit</button>
+            </form>
+        </div>
+        <div id="cocktail-div">
+            <ul id="cocktail-list">
+                <!-- <li> create <li> elements based on user input values and append to <ul> -->
+            </ul>
+        </div>
+        <div id="filters-div">
+            <button>Filter1</button>
+            <button>Filter2</button>
+            <button>Filter3</button>
+            <button>Filter4</button>
+        </div>
+
+    <!-- SAVED RECIPES FIELD (MAX OF 5) -->
+        <div id="saved-cocktail-container">
+            <!-- uses javascript to create a <div> for recipe name / <img> for recipe picture / add an <a> to image to link to website -->
+        </div>
+
+    <!-- RECIPE RETURN FIELD -->
+        <div id="cocktail-container">
+            <h1># of cocktails</h1>
+        </div>
+    <!-- JAVASCRIPT CODED -->
+        <!-- line 24-28 should be in a for loop for javascript -->
+        <!-- seperate div containers for each recipe returned  -->
+        <!-- h2 tag that contains recipe name / include href to website with full recipe -->
+        <!-- p tag or multiple <li> that contians a short list of ingredients (preferably main and important ingredients / returns the ingredients that make up most of the dish?) -->
+        <!-- a <ul> that contains <li> about additional information regarding the dish-->
+            <!-- <li> with cook time / serving size / and criteria filters -->
+
+
+
+
+    <!-- RANDOM RECIPES TO TRY -->
+    <div id="random-cocktail-container">
+        <h1>Try these 3 random Cocktails</h1>
+        <!-- JAVASCRIPT CODED -->
+        <!-- line 36-37 should be in a forloop that generates 3 random recipes and store them to html-->
+        <!-- images for random recipe with clickable area that redirects to recipe website -->
+        <!-- a p tag that has the name of the recipe underneatht the image -->
+        <div class="random-cocktails">
+            
+        </div>
+        <div class="random-cocktails">
+
+        </div>
+        <div class="random-cocktails">
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assets/js/cocktaildb.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
