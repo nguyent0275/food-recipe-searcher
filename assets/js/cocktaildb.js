@@ -5,11 +5,41 @@ $(function() {
   var requestURL = 'https://thecocktaildb.com/api/json/v1/1/search.php?s=';
   var cocktailListEl = $('#cocktail-list');
 
+  cocktailListEl.hide();
+
+  $('#drinkSearchBtn').click(function(e) {
+    e.preventDefault();
+
+    loadCocktails();
+
+    cocktailListEl.show();
+    
+  });
+
   async function loadCocktails() {
     var response = await fetch(requestURL);
     var jsonData = await response.json();
     console.log(jsonData);
     console.log(jsonData.drinks[0].strDrink);
+
+    if (jsonData.drinks) {
+      var drinks = jsonData.drinks;
+
+      for (var i = 0; i < drinks.length; i++) {
+          var drink = drinks[i];
+          var drinkName = drink.strDrink;
+          var drinkInstructions = drink.strInstructions;
+
+          var li = $('<li>');
+          li.text(drinkName);
+          cocktailListEl.append(li);
+
+          var p = $('<p>');
+          p.text(drinkInstructions);
+          cocktailListEl.append(p);
+      }
+  }
+
   }
 
   loadCocktails();
@@ -59,9 +89,9 @@ function reposFetch(url) {
   });
 }
 
-var userName = 'exampleUser';
+var userName = '';
 
- firstFetch(userName);
+ reposFetchFetch(userName);
 
 // EDAMAM API important object and key:value returns 
 // hits[0-19] = different recipes (20 per page request)
