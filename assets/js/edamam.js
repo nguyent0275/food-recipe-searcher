@@ -53,26 +53,70 @@ loadRecipes();
 // let ingredientsList = $(ulIngredients)
 
 // need a function that creates a li and takes the ingredients.value to create/append to the ulIngredients
-renderIngredients
-$('#submit').on("click", renderIngredients)
+let ingredientList = $('#ingredient-list')
+let userIngredient = $('#user-ingredient').html
+console.log(typeof(userIngredient))
+// console.log(userIngredient)
+$('#add').on("click", renderIngredients)
 function renderIngredients(event) {
-    event.preventDefault
+    event.preventDefault()
     // $('user-ingredient').value
     //create
-    console.log("working")
-    // $('<li>').text($('user-ingredient').value)
+    // console.log(userIngredient.value)
+    let ingredients = $('<li>') 
+    console.log(userIngredient)
+    ingredients.text(userIngredient)
     //attr
     //append
-    $('#ingredient-list').append($('<li>').text($('user-ingredient').value))
+    ingredientList.append(ingredients)
+    // $('#ingredient-list').append($('<li>').text($('user-ingredient').value))
 }
 // need a function that applies a filter on the search based on pre-existing criterias (append the function as a button to said crtierias)
 // search via healthLabels and return recipes that match
+const vegetarian = $('#vegetarian')
+const vegan = $('#vegan')
+const dairyFree = $('#dairy-free')
+const glutenFree = $('#gluten-free')
+function filterOptions() {
+  if (vegetarian.checked) {
+    jsonData.hits[0].recipe.healthLabel = "vegetarian"
+  }
+  if (vegan.checked) {
+    jsonData.hits[0].recipe.healthLabel = "vegan"
+  }
+  if (dairyFree.checked) {
+    jsonData.hits[0].recipe.healthLabel = "dairyfree"
+  }
+  if (glutenFree.checked) {
+    jsonData.hits[0].recipe.healthLabel = "glutenfree"
+  }
 
+}
 // need a forloop that creates <div>, <a>, <p> or <lis>, <ul> with <li> appended to the <ul>
 // <div> is the container for each recipe
 // <a> is the name of the recipe with a link to the website / use css to give it bigger font size
 // <p> or <lis> is the ingredients
 // <ul> and <li> is the additional info about dish (cooktime, serving size, and fiters)
+let recipeContainer = $('#recipe-container')
+$('#submit').on("submit", renderRecipes)
+function renderRecipes() {
+  for (let i = 0; i < 9; i++) {
+    //create
+    let recipeDiv = $('<div>')
+    let recipeURL = $('<a>')
+    let recipeName = $('<h2>')
+    //attr
+    recipeDiv.addClass("recipes")
+    recipeDiv.text("recipediv")
+    recipeURL.addClass('url')
+    recipeURL.text("url")
+    recipeName.text("name")
+    //append
+    recipeContainer.append(recipeDiv)
+    recipeDiv.append(recipeURL)
+    recipeDiv.append(recipeName)
+  }
+}
 
 // need a forloop for that pulls 3 random recipe from api library and display and link them
 // grabs the images, url links, and names from the library and appends them to page
