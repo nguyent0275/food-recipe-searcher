@@ -1,25 +1,46 @@
 // document on ready (add document on ready later / was not establishing variables correctly inside of it )
 // $(function() {
+// getting ingredients from html to make q=
+async function searchQuery() {
+  let searchWords = $(".ingredient-item > label");
+  let searchQuery = Array.from(searchWords)
+    .map((e) => e.innerText)
+    .join(" ");
+  searchParameters.q = searchQuery;
+  return jsonData;
+}
 
-async function loadRecipes() {
+const vegetarian = $("#vegetarian");
+const vegan = $("#vegan");
+const dairyFree = $("#dairy-free");
+const glutenFree = $("#gluten-free");
+
+// var checkedValue = $('.health-options:checked')
+
+$('.health-options').on("click", function(){
+  let isChecked = $('.health-options:checked')
+  console.log(isChecked.val())
+  if (isChecked.val() === "on") {
+    console.log(isChecked)
+    // if value is checked or "on" / take text from html and stringify and join together for searchparam
+  }
+})
+
+
+// last function that runs the fetch and api search
+async function searchDatabase(searchQuery /*string*/, healthRequirements /* string[] */){
   let apiURL = "https://api.edamam.com/api/recipes/v2?";
   let searchParameters = {
     per_page: 1,
     type: "public",
     app_id: "47a9652c",
     app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d",
+    q: searchQuery,
+    health: healthRequirements,
   };
-  let searchWords = $(".ingredient-item > label");
-  let searchQuery = Array.from(searchWords)
-    .map((e) => e.innerText)
-    .join(" ");
-  searchParameters.q = searchQuery;
   let requestURL = apiURL + new URLSearchParams(searchParameters);
   let response = await fetch(requestURL);
   let jsonData = await response.json();
-  console.log(requestURL);
-  // console.log(Object.keys(jsonData));
-  console.log(jsonData.hits[0].recipe.label);
   return jsonData;
 }
 
@@ -61,24 +82,7 @@ function renderIngredients(event) {
 }
 // need a function that applies a filter on the search based on pre-existing criterias (append the function as a button to said crtierias)
 // search via healthLabels and return recipes that match
-const vegetarian = $("#vegetarian");
-const vegan = $("#vegan");
-const dairyFree = $("#dairy-free");
-const glutenFree = $("#gluten-free");
-function filterOptions() {
-  if (vegetarian.checked) {
-    jsonData.hits[0].recipe.healthLabel = "vegetarian";
-  }
-  if (vegan.checked) {
-    jsonData.hits[0].recipe.healthLabel = "vegan";
-  }
-  if (dairyFree.checked) {
-    jsonData.hits[0].recipe.healthLabel = "dairyfree";
-  }
-  if (glutenFree.checked) {
-    jsonData.hits[0].recipe.healthLabel = "glutenfree";
-  }
-}
+
 // need a forloop that creates <div>, <a>, <p> or <lis>, <ul> with <li> appended to the <ul>
 // <div> is the container for each recipe
 // <a> is the name of the recipe with a link to the website / use css to give it bigger font size
