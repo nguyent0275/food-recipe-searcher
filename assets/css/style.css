@@ -1,7 +1,13 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 
+body {
+padding-left: 2%;
+padding-right: 2%;
+
+}
 
 header {
+    background-color: aquamarine;
     padding: 2%;
     text-align: center;
     font-size: 150%;
@@ -18,6 +24,7 @@ header {
 
 h1 {
     font-weight: bolder;
+    font-size: 125%;
 }
 
 h3 {
@@ -25,16 +32,48 @@ h3 {
     font-weight: bolder;
 }
 
-input {
+.inputText {
     width: 50%;
     padding: 1%;
     font-size: 100%;
 }
 
-#searchBtn {
+.sBtn {
     padding: 1%;
+    margin: 0 2%;
 }
 
 .option {
+    margin: 1% 0%;
     color: blue;
+    margin-right: 1%;
+    margin-left: 1%;
 }
+
+.optionCon {
+    margin-top: 1%; 
+}
+
+.foodList {
+    margin-right: 2%;
+    display: flex;
+    flex-direction: row;
+    padding: 2%;
+}
+
+.ingredient-item {
+    margin-right: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.remove {
+    margin-left: 5px;
+}
+
+/* ul {
+    display: inline-block;
+} */
+
+
+
