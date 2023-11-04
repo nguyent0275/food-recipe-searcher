@@ -2,17 +2,7 @@
 
 body {
 background-color: #f9f9f9;
-
-}
-
-html{
-    height: 100vh;
-}
-
-
-#page-container {
-    background-color: yellow;
-    width: 100%;
+overflow-x: hidden;
 }
 
 header {
@@ -43,7 +33,7 @@ h3 {
 }
 
 .inputText {
-    width: 50%;
+    width: 60%;
     padding: 1%;
     font-size: 100%;
 }
@@ -121,6 +111,14 @@ text-align: center;
     display: list-item;
     list-style-position: inside;
     margin-top: 5%;
+}
+
+li img {
+    height: 150px;
+}
+
+#cocktail-list li {
+    font-size: 24px;
 }
 
 
