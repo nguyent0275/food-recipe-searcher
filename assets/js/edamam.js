@@ -1,13 +1,15 @@
+// document on ready
 $(function () {
   let recipeData = {};
+  // loadRecipes calls 3 functions to get user inputs and fetch from api
   async function loadRecipes() {
     let healthRequirements = getHealthReqs(); // string[]
     let searchQuery = getSearchQuery(); // string
-    let results = await searchDatabase(searchQuery, healthRequirements); // Promise<json data from the page>
+    let results = await searchDatabase(searchQuery, healthRequirements); // Promise <json data from the page>
     return results;
   }
 
-  // getting ingredients from html to make q=
+  // getting ingredients from user inputs to make a searchQuery
   function getSearchQuery() {
     let searchWords = $(".ingredient-item > label");
     let query = Array.from(searchWords)
@@ -16,9 +18,7 @@ $(function () {
     return query;
   }
 
-  // need a function that applies a filter on the search based on pre-existing criterias (append the function as a button to said crtierias)
-  // search via healthLabels and return recipes that match
-
+  // getting health labels based on user inputs in checkboxes
   function getHealthReqs() {
     // on function call, variables will be stored with a value of true or false
     const vegetarian = $("#vegetarian").is(":checked");
@@ -42,7 +42,7 @@ $(function () {
     return healthReqsArray;
   }
 
-  // last function that runs the fetch and api search
+  // last function that runs the fetch and api search based on healthreqs and search query
   async function searchDatabase(
     searchQuery /*string*/,
     healthRequirements /* string[] */
@@ -53,6 +53,7 @@ $(function () {
       type: "public",
       app_id: "47a9652c",
       app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d",
+      mealType: "Dinner",
       q: searchQuery,
     };
     let urlSearchParams = new URLSearchParams(searchParameters);
@@ -68,7 +69,7 @@ $(function () {
     return jsonData;
   }
 
-  // need a function that creates a li and takes the ingredients.value to create/append to the ulIngredients
+  // create click function that creates <li> elements based on user ingredients
   let ingredientList = $("#ingredient-list");
   $("#add").on("click", renderIngredients);
   function renderIngredients(event) {
@@ -76,8 +77,8 @@ $(function () {
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
-      alert("Please enter an ingredient")
-      return
+      alert("Please enter an ingredient");
+      return;
     }
     //create
     let ingredientItem = $("<li>");
@@ -99,45 +100,28 @@ $(function () {
     userIngredientEl.value = "";
   }
 
-  // need a forloop that creates <div>, <a>, <p> or <lis>, <ul> with <li> appended to the <ul>
-  // <div> is the container for each recipe
-  // <a> is the name of the recipe with a link to the website / use css to give it bigger font size
-  // <p> or <lis> is the ingredients
-  // <ul> and <li> is the additional info about dish (cooktime, serving size, and fiters)
+  // create click function for search button that calls api and creates elements with the data
   let recipeContainer = $("#recipe-container");
   let savedRecipeDiv = $("#saved-recipe");
-
   $("#search").on("click", renderRecipes);
   async function renderRecipes() {
     recipeData = await loadRecipes();
-    let numOfRecipeEl = $("#recipe-num");
-    numOfRecipeEl.text(recipeData.count + " Recipes Available");
-    if (recipeData.count === 0) {
-      numOfRecipeEl.text("No Recipes Found");
-    }
+    // on multiple searches, the html will be cleared for new search
+    recipeContainer.children(".recipe").remove();
     for (let i = 0; i < 9; i++) {
       createRecipeEl(recipeContainer, i, true);
     }
   }
-  // ask TA why this doesn't work?
-  // $(".save-btn").on("click", function() {
-  //   const saveRecipeItemPosition = $(this).attr("value");
-  //   console.log(saveRecipeItemPosition);
-  //   createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
-  // });
-
-  // saved recipes over 3, go outside browser
+  // create click function for save button that recreates the saved recipe under the saved recipe div
   $("#recipe-container").on("click", ".save-btn", saveRecipe);
-
   function saveRecipe() {
-    const length = savedRecipeDiv.children('recipe').length
-    if(length <= 3){
+    const length = savedRecipeDiv.children(".recipe").length;
+    if (length <= 2) {
       const saveRecipeItemPosition = $(this).attr("value");
-      console.log(saveRecipeItemPosition);
       createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
     }
   }
-  
+  // function for creating html elements based on api data
   function createRecipeEl(parentDiv, i, createButton) {
     //create
     let recipeDivEl = $("<div>");
@@ -148,7 +132,6 @@ $(function () {
     let cookTimeEl = $("<li>");
     let servingSizeEl = $("<li>");
     let caloriesEl = $("<li>");
-    // let saveRecipeBtn = $('<button>')
     let recipeAPIData = recipeData.hits[i].recipe;
     let cookTimeNumber = recipeAPIData.totalTime;
     //attr
@@ -157,8 +140,6 @@ $(function () {
     recipeImgEl.addClass("recipe-img");
     recipeNameEl.addClass("recipe-name");
     recipeInfoEl.addClass("recipe-info");
-    // saveRecipeBtn.addClass('save-btn')
-    // saveRecipeBtn.text("Save")
     recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
     recipeURL.attr("href", recipeAPIData.url);
     recipeURL.text(recipeAPIData.label);
@@ -178,7 +159,6 @@ $(function () {
     recipeInfoEl.append(cookTimeEl);
     recipeInfoEl.append(servingSizeEl);
     recipeInfoEl.append(caloriesEl);
-    // recipeDivEl.append(saveRecipeBtn)
     parentDiv.append(recipeDivEl);
     if (createButton) {
       let saveRecipeBtn = $("<button>");
@@ -186,6 +166,15 @@ $(function () {
       saveRecipeBtn.attr({ value: i });
       saveRecipeBtn.text("Save");
       recipeDivEl.append(saveRecipeBtn);
+    } else {
+      let removeRecipeBtn = $("<button>");
+      removeRecipeBtn.addClass("remove");
+      removeRecipeBtn.attr({ value: i });
+      removeRecipeBtn.text("Delete");
+      recipeDivEl.append(removeRecipeBtn);
+      removeRecipeBtn.click(() => {
+        recipeDivEl.remove();
+      });
     }
   }
 });
