@@ -18,30 +18,38 @@
         <h1>What's For Dinner (FOOD)</h1>
      </header>   
     <!--Start Left Colummn-->
-      <div class="columns" id="recipe-searcher"> 
-        <div class="column is-one-quarter">
-        <p>This is how you use the applications (placeholder text)</p>
+    <div class="columns" id="recipe-searcher" style="background-color: blue;"> 
+      <div class="column is-one-quarter">
+        <ul>
+          <ol class="instructions">Put each of your ingredients that you have handy in the search bar.</ol>
+          <ol class="instructions">Add them one by one once you have a comfortable list of ingredients(the more you have, the more specific the reipe).</ol>
+          <ol class="instructions">Choose from our four health / dietary restriction filters.</ol>
+          <ol class="instructions">Once you're done, click that "Search" button and you'll have yourself a list full of recips tailored to you.</ol>
+        </ul>
+      </div>
+
+      <!--Start Right Column-->
+      <div class="column" style="background-color: red;">
+
+      <div class="columns">
+        <div class="column is-half"> 
+          <form>
+            <input type="text" id="user-ingredient" class="inputText" placeholder="Add Ingredient"/>
+            <button id="add" class="sBtn">Add</button>
+          </form>
         </div>
-    <!--Start Right Column-->
-      <div class="column">
-        <div class="columns">
-          <div class="column is-half"> 
-            <form>
-              <input type="text" id="user-ingredient" class="inputText" placeholder="Let's find you somthing to drink!"/>
-              <button id="add" class="sBtn">I'm thirsty!</button>
-            </form>
-          </div>
-          <div id="filters-div" class="column is-half" >
-            <label for="vegetarian">Vegetarian</label>  
-            <input class="health-options" type="checkbox" id="vegetarian" name="vegetarian">
-            <label for="vegan">Vegan</label>
-            <input class="health-options" type="checkbox" id="vegan" name="vegan">
-            <label for="dairy-free">Dairy-Free</label>
-            <input class="health-options" type="checkbox" id="dairy-free" name="dairy-free">
-            <label for="gluten-free">Gluten-Free</label>
-            <input class="health-options" type="checkbox" id="gluten-free" name="gluten-free">
-            <button id="submit" class="sBtn">Apply Filters</button>
-          </div>
+        
+        <div id="filters-div" class="column is-half" >
+          <label for="vegetarian">Vegetarian</label>  
+          <input class="health-options" type="checkbox" id="vegetarian" name="vegetarian">
+          <label for="vegan">Vegan</label>
+          <input class="health-options" type="checkbox" id="vegan" name="vegan">
+          <label for="dairy-free">Dairy-Free</label>
+          <input class="health-options" type="checkbox" id="dairy-free" name="dairy-free">
+          <label for="gluten-free">Gluten-Free</label>
+          <input class="health-options" type="checkbox" id="gluten-free" name="gluten-free">
+          <button id="submit" class="sBtn">Search</button>
+        </div>
       </div>
       <div id="ingredients-div" class="columns"><!--Below Search and Filters Div-->
         <ul id="ingredient-list" class="foodList">
@@ -50,7 +58,7 @@
       </div>
       <div class="columns optionCon">
         <div>
-          <h1>Try these random recipes</h1>
+          <h1>Saved Recipes</h1>
         </div>
       </div>
       <div id="recipe-container" class="columns optionCon"> 

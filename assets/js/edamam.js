@@ -109,43 +109,63 @@ async function renderRecipes() {
     numOfRecipeEl.text("No Recipes Found")
   }
   for (let i = 0; i < 9; i++) {
-    //create
-    let recipeDivEl = $("<div>");
-    let recipeImgEl = $("<img>");
-    let recipeURL = $("<a>");
-    let recipeNameEl = $("<h2>");
-    let recipeInfoEl = $("<ul>");
-    let cookTimeEl = $("<li>");
-    let servingSizeEl = $("<li>");
-    let caloriesEl = $("<li>");
-    let recipeAPIData = recipeData.hits[i].recipe;
-    let cookTimeNumber = recipeAPIData.totalTime;
-    //attr
-    recipeDivEl.addClass("recipe");
-    recipeURL.addClass("url");
-    recipeImgEl.addClass("recipe-img");
-    recipeNameEl.addClass("recipe-name");
-    recipeInfoEl.addClass("recipe-info");
-    recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
-    recipeURL.attr("href", recipeAPIData.url);
-    recipeURL.text(recipeAPIData.label);
-    if (cookTimeNumber == 0) {
-      cookTimeEl.text("Cook Time: N/A");
-    } else {
-      cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
-    }
-    servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
-    caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
-
-    //append
-    // recipeContainer.append(recipeDivEl);
-    recipeDivEl.append(recipeNameEl);
-    recipeDivEl.append(recipeImgEl);
-    recipeNameEl.append(recipeURL);
-    recipeDivEl.append(recipeInfoEl);
-    recipeInfoEl.append(cookTimeEl);
-    recipeInfoEl.append(servingSizeEl);
-    recipeInfoEl.append(caloriesEl);
-    recipeContainer.append(recipeDivEl);
+    createRecipeEl(recipeData, i, true)
   }
+}
+
+$('.save-btn').on("click", saveRecipe)
+function saveRecipe(recipeData){
+  // save recipe should append a part of the recipe to the page and store some value in local storage
+  let savedRecipeObject {
+    
+  }
+}
+function createRecipeEl(recipeData, i, createButton) {
+      //create
+      let recipeDivEl = $("<div>");
+      let recipeImgEl = $("<img>");
+      let recipeURL = $("<a>");
+      let recipeNameEl = $("<h2>");
+      let recipeInfoEl = $("<ul>");
+      let cookTimeEl = $("<li>");
+      let servingSizeEl = $("<li>");
+      let caloriesEl = $("<li>");
+      // let saveRecipeBtn = $('<button>')
+      let recipeAPIData = recipeData.hits[i].recipe;
+      let cookTimeNumber = recipeAPIData.totalTime;
+      //attr
+      recipeDivEl.addClass("recipe");
+      recipeURL.addClass("url");
+      recipeImgEl.addClass("recipe-img");
+      recipeNameEl.addClass("recipe-name");
+      recipeInfoEl.addClass("recipe-info");
+      // saveRecipeBtn.addClass('save-btn')
+      // saveRecipeBtn.text("Save")
+      recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
+      recipeURL.attr("href", recipeAPIData.url);
+      recipeURL.text(recipeAPIData.label);
+      if (cookTimeNumber == 0) {
+        cookTimeEl.text("Cook Time: N/A");
+      } else {
+        cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
+      }
+      servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
+      caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
+  
+      //append
+      recipeDivEl.append(recipeNameEl);
+      recipeDivEl.append(recipeImgEl);
+      recipeNameEl.append(recipeURL);
+      recipeDivEl.append(recipeInfoEl);
+      recipeInfoEl.append(cookTimeEl);
+      recipeInfoEl.append(servingSizeEl);
+      recipeInfoEl.append(caloriesEl);
+      // recipeDivEl.append(saveRecipeBtn)
+      recipeContainer.append(recipeDivEl);
+      if (createButton) {
+      let saveRecipeBtn = $('<button>')
+      saveRecipeBtn.addClass('save-btn')
+      saveRecipeBtn.text("Save")
+      recipeDivEl.append(saveRecipeBtn)
+      }
 }
