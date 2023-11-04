@@ -3,6 +3,7 @@ $(function () {
   async function loadRecipes() {
     let healthRequirements = getHealthReqs(); // string[]
     let searchQuery = getSearchQuery(); // string
+    console.log(searchQuery);
     let results = await searchDatabase(searchQuery, healthRequirements); // Promise<json data from the page>
     return results;
   }
@@ -53,6 +54,7 @@ $(function () {
       type: "public",
       app_id: "47a9652c",
       app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d",
+      mealType: "Dinner",
       q: searchQuery,
     };
     let urlSearchParams = new URLSearchParams(searchParameters);
@@ -76,8 +78,8 @@ $(function () {
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
-      alert("Please enter an ingredient")
-      return
+      alert("Please enter an ingredient");
+      return;
     }
     //create
     let ingredientItem = $("<li>");
@@ -110,34 +112,25 @@ $(function () {
   $("#search").on("click", renderRecipes);
   async function renderRecipes() {
     recipeData = await loadRecipes();
-    let numOfRecipeEl = $("#recipe-num");
-    numOfRecipeEl.text(recipeData.count + " Recipes Available");
-    if (recipeData.count === 0) {
-      numOfRecipeEl.text("No Recipes Found");
-    }
+    console.log(recipeData);
+    recipeContainer.children(".recipe").remove();
     for (let i = 0; i < 9; i++) {
       createRecipeEl(recipeContainer, i, true);
     }
   }
-  // ask TA why this doesn't work?
-  // $(".save-btn").on("click", function() {
-  //   const saveRecipeItemPosition = $(this).attr("value");
-  //   console.log(saveRecipeItemPosition);
-  //   createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
-  // });
 
   // saved recipes over 3, go outside browser
   $("#recipe-container").on("click", ".save-btn", saveRecipe);
 
   function saveRecipe() {
-    const length = savedRecipeDiv.children('recipe').length
-    if(length <= 3){
+    const length = savedRecipeDiv.children(".recipe").length;
+    if (length <= 2) {
       const saveRecipeItemPosition = $(this).attr("value");
       console.log(saveRecipeItemPosition);
       createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
     }
   }
-  
+
   function createRecipeEl(parentDiv, i, createButton) {
     //create
     let recipeDivEl = $("<div>");
@@ -186,6 +179,15 @@ $(function () {
       saveRecipeBtn.attr({ value: i });
       saveRecipeBtn.text("Save");
       recipeDivEl.append(saveRecipeBtn);
+    } else {
+      let removeRecipeBtn = $("<button>");
+      removeRecipeBtn.addClass("remove");
+      removeRecipeBtn.attr({ value: i });
+      removeRecipeBtn.text("Delete");
+      recipeDivEl.append(removeRecipeBtn);
+      removeRecipeBtn.click(() => {
+        recipeDivEl.remove();
+      });
     }
   }
 });
