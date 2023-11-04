@@ -51,9 +51,6 @@ $(function() {
   }
 
   }
-
-  // loadCocktails();
-
 });
 
 // function firstFetch(user) {
