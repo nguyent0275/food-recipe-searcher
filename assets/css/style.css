@@ -75,5 +75,9 @@ h3 {
     display: inline-block;
 } */
 
-
+.instructions {
+    display: list-item;
+    list-style-position: inside;
+    margin-top: 5%;
+}
 
