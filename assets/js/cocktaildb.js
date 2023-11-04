@@ -1,8 +1,6 @@
 // document on ready
-// /images/media/drink/vrwquq1478252802.jpg/preview (100x100 pixels OR 350x350 pixels) IMAGES FROM API
 
 $(function() {
-  // var requestURL = 'https://thecocktaildb.com/api/json/v1/1/filter.php?i=';
   var requestURL = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
   var cocktailListEl = $('#cocktail-list');
 
