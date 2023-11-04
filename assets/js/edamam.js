@@ -119,12 +119,24 @@ $(function () {
       createRecipeEl(recipeContainer, i, true);
     }
   }
+  // ask TA why this doesn't work?
+  // $(".save-btn").on("click", function() {
+  //   const saveRecipeItemPosition = $(this).attr("value");
+  //   console.log(saveRecipeItemPosition);
+  //   createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
+  // });
 
-  $(".save-btn").on("click", function() {
-    const saveRecipeItemPosition = $(this).attr("value");
-    console.log(saveRecipeItemPosition);
-    createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
-  });
+  // saved recipes over 3, go outside browser
+  $("#recipe-container").on("click", ".save-btn", saveRecipe);
+
+  function saveRecipe() {
+    const length = savedRecipeDiv.children('recipe').length
+    if(length <= 3){
+      const saveRecipeItemPosition = $(this).attr("value");
+      console.log(saveRecipeItemPosition);
+      createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
+    }
+  }
   
   function createRecipeEl(parentDiv, i, createButton) {
     //create
