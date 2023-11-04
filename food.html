@@ -19,7 +19,12 @@
     <!--Start Left Colummn-->
     <div class="columns" id="recipe-searcher"> 
       <div class="column is-one-quarter">
-        <p>This is how you use the applications (placeholder text)</p>
+        <ul>
+          <ol class="instructions">Put each of your ingredients that you have handy in the search bar.</ol>
+          <ol class="instructions">Add them one by one once you have a comfortable list of ingredients(the more you have, the more specific the reipe).</ol>
+          <ol class="instructions">Choose from our four health / dietary restriction filters.</ol>
+          <ol class="instructions">Once you're done, click that "Search" button and you'll have yourself a list full of recips tailored to you.</ol>
+        </ul>
       </div>
 
 
@@ -28,8 +33,8 @@
       <div class="columns">
         <div class="column is-half"> 
           <form>
-            <input type="text" id="user-ingredient" class="inputText" placeholder="Let's find you somthing to drink!"/>
-            <button id="add" class="sBtn">I'm thirsty!</button>
+            <input type="text" id="user-ingredient" class="inputText" placeholder="Add Ingredient"/>
+            <button id="add" class="sBtn">Add</button>
           </form>
         </div>
         
@@ -42,7 +47,7 @@
           <input class="health-options" type="checkbox" id="dairy-free" name="dairy-free">
           <label for="gluten-free">Gluten-Free</label>
           <input class="health-options" type="checkbox" id="gluten-free" name="gluten-free">
-          <button id="submit" class="sBtn">Apply Filters</button>
+          <button id="submit" class="sBtn">Search</button>
         </div>
       </div>
       <div id="ingredients-div" class="columns"><!--Below Search and Filters Div-->
@@ -51,12 +56,12 @@
         </ul>      
       </div>
 
-      <div class="columns optionCon">
+      <!-- <div class="columns optionCon">
         <div>
           <h1>Try these 3 random recipes</h1>
         </div>
 
-      </div>
+      </div> -->
 
       <!--Start Options 1-3-->
       <div class="columns optionCon"> 
