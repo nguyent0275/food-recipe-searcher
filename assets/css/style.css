@@ -6,19 +6,15 @@ overflow-x: hidden;
 }
 
 header {
-    background-color: aquamarine;
+    background-color: #d83e00;
+    color: white;
     padding: 2%;
-    text-align: center;
+    text-align: left;
     font-size: 150%;
 }
 
-.columns {
-    border: 1px solid black;
-    
-}
-
 .column {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 2%;
 }
 
@@ -30,10 +26,11 @@ h1 {
 h3 {
     padding-bottom: 2%;
     font-weight: bolder;
+    margin-right: 1%;
 }
 
 .inputText {
-    width: 60%;
+    width: 80%;
     padding: 1%;
     font-size: 100%;
 }
@@ -43,60 +40,64 @@ h3 {
     margin: 0 2%;
 }
 
-.option {
-    margin: 1% 0%;
-    color: blue;
-    margin-right: 1%;
-    margin-left: 1%;
+div#ingredients-div.column {
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: #d83e00;
 }
 
-.optionCon {
-    margin-top: 1%; 
-    background-color: blue;
-}
 
-.foodList {
-    margin-right: 2%;
-    display: flex;
-    flex-direction: row;
-    padding: 2%;
-}
-
-#ingredient-list {
+ul#ingredient-list.foodList {
     display: flex;
     flex-wrap: wrap;
 }
 
-.ingredient-item {
-    margin-right: 15px;
-    display: flex;
-    flex-direction: row;
+
+li.ingredient-item {
+    flex: 0 0 10%;
+    justify-content: flex-start;
+}
+
+button.remove {
+    margin-left: 10px;
+    padding: 2%;
 }
 
 .remove {
+    flex: 1 0 2%;
     margin-left: 5px;
+    background-color: #d83e00;
+    color: white;
 }
 
 .health-options{
     margin: 1%;
 }
-/* ul {
-    display: inline-block;
-} */
-
 
 #recipe-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 2%;
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: #d83e00;
+}
+
+#saved-recipe {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 0%;
+    /* background-color: blue; */
 }
 
 .recipe {
     flex: 0 0 33%;
     justify-content: center;
     margin-bottom: 3%;
-    background-color: yellow;
+    background-color: white;
+    border-radius: 5%;
 }
 
 .recipe-name {
@@ -131,9 +132,45 @@ li img {
     font-size: 24px;
 }
 
-#saved-recipe {
-    padding-top: 10%;
-    padding-bottom: 10%
+button.save-btn {
+    margin: 2% 42%;
+    color: blue;
+    padding: 2%;
 }
+
+div.columns.cocktailSearch {
+    border: 1px solid #d83e00;
+    border-radius: 10px;
+    padding: 2%;
+    width: 100%;
+}
+
+div#cocktail {
+    width: 100%;
+}
+
+div.columns.cktResultsContainer {
+    border: 1px solid #d83e00;
+    border-radius: 10px;
+    padding: 2%;
+    margin-top: 2%;
+
+}
+
+ul#cocktail-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+input.user-ingredient {
+    margin-top: 2%;
+    padding: 1%;
+    width: 30%;
+}
+
+button#drinkSearchBtn {
+    padding: 1%;
+}
+
 
 
