@@ -39,19 +39,20 @@
         <!--Start Right Column-->
         <div class="column">
           <div class="columns">
-            <div class="column is-one-third">
+            <div class="column is-half">
               <form>
                 <input
                   type="text"
                   id="user-ingredient"
                   class="inputText"
                   placeholder="Add Ingredient"
+                  style="width: 83%"
                 />
                 <button id="add" class="sBtn">Add</button>
               </form>
             </div>
 
-            <div id="filters-div" class="column">
+            <div id="filters-div" class="column is-half">
               <input
                 class="health-options"
                 type="checkbox"
@@ -83,15 +84,18 @@
               <button id="search" class="sBtn">Search</button>
             </div>
           </div>
-          <div id="ingredients-div" class="column">
+          <div id="ingredients-div" class="columns">
             <!--Below Search and Filters Div-->
-            <h3 class="ingredientsHeader">My Ingredients</h3>
             <ul id="ingredient-list" class="foodList">
+              My Ingredients
               <!-- <li> create <li> elements based on user input values and append to <ul> -->
             </ul>
           </div>
-          <div id="saved-recipe" class="column "></div>
-          <div id="recipe-container" class="column "></div>
+
+          <div id="saved-recipe" class="columns optionCon"></div>
+
+          <div id="recipe-container" class="column optionCon"></div>
+          <!--End Options 1-3-->
         </div>
       </div>
       <!--End of div clas='columns' id='recipe-searcher'-->
