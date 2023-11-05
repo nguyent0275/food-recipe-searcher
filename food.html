@@ -19,23 +19,21 @@
       <!--Start Left Colummn-->
       <div class="columns" id="recipe-searcher">
         <div class="column is-one-quarter">
-          <ul>
-            <ol class="instructions">
-              Put each of your ingredients that you have handy in the search
-              bar.
-            </ol>
-            <ol class="instructions">
-              Add them one by one once you have a comfortable list of
-              ingredients(the more you have, the more specific the reipe).
-            </ol>
-            <ol class="instructions">
+          <ol type="1">
+            <li class="instructions">
+              Put an ingredient(s) that you have handy in the search bar.
+            </li>
+            <li class="instructions">
+              Click "Add" to put them in your ingredients list.
+            </li>
+            <li class="instructions">
               Choose from our four health / dietary restriction filters.
-            </ol>
-            <ol class="instructions">
-              Once you're done, click that "Search" button and you'll have
-              yourself a list full of recips tailored to you.
-            </ol>
-          </ul>
+            </li>
+            <li class="instructions">
+              Once you're done, click that "Search" button and you'll have a
+              list of recipes tailored to your ingredients and needs.
+            </li>
+          </ol>
         </div>
 
         <!--Start Right Column-->
@@ -48,46 +46,48 @@
                   id="user-ingredient"
                   class="inputText"
                   placeholder="Add Ingredient"
+                  style="width: 83%"
                 />
                 <button id="add" class="sBtn">Add</button>
               </form>
             </div>
 
             <div id="filters-div" class="column is-half">
-              <label for="vegetarian">Vegetarian</label>
               <input
                 class="health-options"
                 type="checkbox"
                 id="vegetarian"
                 name="vegetarian"
               />
-              <label for="vegan">Vegan</label>
+              <label for="vegetarian">Vegetarian</label>
               <input
                 class="health-options"
                 type="checkbox"
                 id="vegan"
                 name="vegan"
               />
-              <label for="dairy-free">Dairy-Free</label>
+              <label for="vegan">Vegan</label>
               <input
                 class="health-options"
                 type="checkbox"
                 id="dairy-free"
                 name="dairy-free"
               />
-              <label for="gluten-free">Gluten-Free</label>
+              <label for="dairy-free">Dairy-Free</label>
               <input
                 class="health-options"
                 type="checkbox"
                 id="gluten-free"
                 name="gluten-free"
               />
+              <label for="gluten-free">Gluten-Free</label>
               <button id="search" class="sBtn">Search</button>
             </div>
           </div>
           <div id="ingredients-div" class="columns">
             <!--Below Search and Filters Div-->
             <ul id="ingredient-list" class="foodList">
+              My Ingredients
               <!-- <li> create <li> elements based on user input values and append to <ul> -->
             </ul>
           </div>

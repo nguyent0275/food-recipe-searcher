@@ -62,6 +62,11 @@ h3 {
     padding: 2%;
 }
 
+#ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .ingredient-item {
     margin-right: 15px;
     display: flex;
@@ -72,6 +77,9 @@ h3 {
     margin-left: 5px;
 }
 
+.health-options{
+    margin: 1%;
+}
 /* ul {
     display: inline-block;
 } */
