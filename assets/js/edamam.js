@@ -1,6 +1,7 @@
 // document on ready
 $(function () {
   let recipeData = {};
+  let savedRecipesData = {};
   // loadRecipes calls 3 functions to get user inputs and fetch from api
   async function loadRecipes() {
     let healthRequirements = getHealthReqs(); // string[]
@@ -55,6 +56,8 @@ $(function () {
       app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d",
       mealType: "Dinner",
       q: searchQuery,
+
+  
     };
     let urlSearchParams = new URLSearchParams(searchParameters);
     if (healthRequirements.length !== 0) {
@@ -113,16 +116,30 @@ $(function () {
     }
   }
   // create click function for save button that recreates the saved recipe under the saved recipe div
-  $("#recipe-container").on("click", ".save-btn", saveRecipe);
-  function saveRecipe() {
+  $("#recipe-container").on("click", ".save-btn", function(){
+    const value = $(this).attr("value");
+    saveRecipe(value);
+  });
+
+  function saveRecipe(saveRecipeItemPosition) {
+    if (recipeData && recipeData.hits && recipeData. hits[saveRecipeItemPosition] && recipeData.hits[saveRecipeItemPosition].recipe) {
     const length = savedRecipeDiv.children(".recipe").length;
     if (length <= 2) {
-      const saveRecipeItemPosition = $(this).attr("value");
+      const savedRecipesJSON = localStorage.getItem("savedRecipes");
+      const savedRecipes = savedRecipesJSON ? JSON.parse(savedRecipesJSON) : [];
+      savedRecipes.push(recipeData.hits[saveRecipeItemPosition].recipe);
+      localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
       createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
     }
+  } else {
+    console.error("Recipe data is missing or invalid.");
   }
+}
   // function for creating html elements based on api data
   function createRecipeEl(parentDiv, i, createButton) {
+    if (recipeData && recipeData.hits && recipeData.hits.length > i) {
+
+      let recipeAPIData = recipeData.hits[i].recipe;
     //create
     let recipeDivEl = $("<div>");
     let recipeImgEl = $("<img>");
@@ -132,24 +149,38 @@ $(function () {
     let cookTimeEl = $("<li>");
     let servingSizeEl = $("<li>");
     let caloriesEl = $("<li>");
-    let recipeAPIData = recipeData.hits[i].recipe;
-    let cookTimeNumber = recipeAPIData.totalTime;
-    //attr
+
     recipeDivEl.addClass("recipe");
     recipeURL.addClass("url");
     recipeImgEl.addClass("recipe-img");
     recipeNameEl.addClass("recipe-name");
     recipeInfoEl.addClass("recipe-info");
+
+  
+if (recipeAPIData.images && recipeAPIData.images.SMALL && recipeAPIData.url) {
     recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
     recipeURL.attr("href", recipeAPIData.url);
     recipeURL.text(recipeAPIData.label);
-    if (cookTimeNumber == 0) {
-      cookTimeEl.text("Cook Time: N/A");
-    } else {
-      cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
-    }
-    servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
-    caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
+}
+
+let cookTimeNumber = recipeAPIData.totalTime;
+if (cookTimeNumber === 0) {
+  cookTimeEl.text("Cook Time: N/A");
+} else {
+  cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
+}
+
+if (recipeAPIData.yield) {
+  servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
+} else {
+  servingSizeEl.text("Serving Size: N/A");
+}
+
+if (recipeAPIData.calories) {
+  caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
+} else {
+  caloriesEl.text("Calories: N/A");
+}
 
     //append
     recipeDivEl.append(recipeNameEl);
@@ -176,5 +207,38 @@ $(function () {
         recipeDivEl.remove();
       });
     }
+  } else {
+    console.error("Recipe data is missing or invalid.");
+    console.log("recipeData:", recipeData);
+    console.log("recipeData.hits:", recipeData && recipeData.hits);
   }
+  }
+
+  // Function to get saved recipes from local storage
+  function getSavedRecipes() {
+    const savedRecipesJSON = localStorage.getItem("savedRecipes");
+    return JSON.parse(savedRecipesJSON) || [];
+  }
+
+  //Function to display saved recipes
+  function displaySavedRecipes() {
+    const savedRecipes = getSavedRecipes();
+    const savedRecipeDiv = $("#saved-recipe");
+
+    savedRecipeDiv.empty();
+
+    if (recipeData && recipeData.hits) {
+    savedRecipes.forEach((recipe, i) => {
+      createRecipeEl(savedRecipeDiv,recipe,false);
+    });
+  }
+}
+
+  $(document).ready(function () {
+
+    recipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
+
+    displaySavedRecipes();
+  })
 });
+
