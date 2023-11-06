@@ -1,19 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>What's For Dinner (FOOD)</title>
 </head>
+
 <body>
-    <button id="food-app">
-        <a href="./food.html">FOOD</a>
-    </button>
-    <button id="drinks-app">
-        <a href="./drinks.html">DRINKS</a>
-    </button>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous"></script>
-    <script src="./assets/js/script.js"></script>
+  <div class="container">
+    <header>
+      <h1>What's For Dinner</h1>
+      <nav>
+        <button><a href="./drinks.html">Drinks</a></button>
+      </nav>
+    </header>
+    <!--Start Left Colummn-->
+    <div class="columns" id="recipe-searcher">
+      <div class="column is-one-quarter">
+        <ol type="1">
+          <li class="instructions">
+            Put an ingredient(s) that you have handy in the search bar.
+          </li>
+          <li class="instructions">
+            Click "Add" to put them in your ingredients list.
+          </li>
+          <li class="instructions">
+            Choose from our four health / dietary restriction filters.
+          </li>
+          <li class="instructions">
+            Once you're done, click that "Search" button and you'll have a
+            list of recipes tailored to your ingredients and needs.
+          </li>
+        </ol>
+      </div>
+
+      <!--Start Right Column-->
+      <div class="column">
+        <div class="columns">
+          <div class="column is-one-third">
+            <form>
+              <input type="text" id="user-ingredient" class="inputText" placeholder="Add Ingredient" />
+              <button id="add" class="sBtn">Add</button>
+            </form>
+          </div>
+
+          <div id="filters-div" class="column">
+            <input class="health-options" type="checkbox" id="vegetarian" name="vegetarian" />
+            <label for="vegetarian">Vegetarian</label>
+            <input class="health-options" type="checkbox" id="vegan" name="vegan" />
+            <label for="vegan">Vegan</label>
+            <input class="health-options" type="checkbox" id="dairy-free" name="dairy-free" />
+            <label for="dairy-free">Dairy-Free</label>
+            <input class="health-options" type="checkbox" id="gluten-free" name="gluten-free" />
+            <label for="gluten-free">Gluten-Free</label>
+            <button id="search" class="sBtn">Search</button>
+          </div>
+        </div>
+        <div id="ingredients-div" class="column">
+          <!--Below Search and Filters Div-->
+          <h3 class="ingredientsHeader">My Ingredients</h3>
+          <ul id="ingredient-list" class="foodList">
+            <!-- <li> create <li> elements based on user input values and append to <ul> -->
+          </ul>
+        </div>
+        <div id="saved-recipe" class="column"></div>
+        <div id="recipe-container" class="column"></div>
+      </div>
+    </div>
+    <!--End of div clas='columns' id='recipe-searcher'-->
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./assets/js/edamam.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
