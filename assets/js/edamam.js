@@ -56,8 +56,6 @@ $(function () {
       app_key: "ff96e3cd2cbbce2cf5d87436ee7f0c2d",
       mealType: "Dinner",
       q: searchQuery,
-
-  
     };
     let urlSearchParams = new URLSearchParams(searchParameters);
     if (healthRequirements.length !== 0) {
@@ -116,102 +114,111 @@ $(function () {
     }
   }
   // create click function for save button that recreates the saved recipe under the saved recipe div
-  $("#recipe-container").on("click", ".save-btn", function(){
+  $("#recipe-container").on("click", ".save-btn", function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
 
   function saveRecipe(saveRecipeItemPosition) {
-    if (recipeData && recipeData.hits && recipeData. hits[saveRecipeItemPosition] && recipeData.hits[saveRecipeItemPosition].recipe) {
-    const length = savedRecipeDiv.children(".recipe").length;
-    if (length <= 2) {
-      const savedRecipesJSON = localStorage.getItem("savedRecipes");
-      const savedRecipes = savedRecipesJSON ? JSON.parse(savedRecipesJSON) : [];
-      savedRecipes.push(recipeData.hits[saveRecipeItemPosition].recipe);
-      localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
-      createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
+    if (
+      recipeData &&
+      recipeData.hits &&
+      recipeData.hits[saveRecipeItemPosition] &&
+      recipeData.hits[saveRecipeItemPosition].recipe
+    ) {
+      const length = savedRecipeDiv.children(".recipe").length;
+      if (length <= 2) {
+        const savedRecipesJSON = localStorage.getItem("savedRecipes");
+        const savedRecipes = savedRecipesJSON
+          ? JSON.parse(savedRecipesJSON)
+          : [];
+        savedRecipes.push(recipeData.hits[saveRecipeItemPosition].recipe);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
+      }
+    } else {
+      console.error("Recipe data is missing or invalid.");
     }
-  } else {
-    console.error("Recipe data is missing or invalid.");
   }
-}
   // function for creating html elements based on api data
   function createRecipeEl(parentDiv, i, createButton) {
     if (recipeData && recipeData.hits && recipeData.hits.length > i) {
-
       let recipeAPIData = recipeData.hits[i].recipe;
-    //create
-    let recipeDivEl = $("<div>");
-    let recipeImgEl = $("<img>");
-    let recipeURL = $("<a>");
-    let recipeNameEl = $("<h2>");
-    let recipeInfoEl = $("<ul>");
-    let cookTimeEl = $("<li>");
-    let servingSizeEl = $("<li>");
-    let caloriesEl = $("<li>");
+      //create
+      let recipeDivEl = $("<div>");
+      let recipeImgEl = $("<img>");
+      let recipeURL = $("<a>");
+      let recipeNameEl = $("<h2>");
+      let recipeInfoEl = $("<ul>");
+      let cookTimeEl = $("<li>");
+      let servingSizeEl = $("<li>");
+      let caloriesEl = $("<li>");
 
-    recipeDivEl.addClass("recipe");
-    recipeURL.addClass("url");
-    recipeImgEl.addClass("recipe-img");
-    recipeNameEl.addClass("recipe-name");
-    recipeInfoEl.addClass("recipe-info");
+      recipeDivEl.addClass("recipe");
+      recipeURL.addClass("url");
+      recipeImgEl.addClass("recipe-img");
+      recipeNameEl.addClass("recipe-name");
+      recipeInfoEl.addClass("recipe-info");
 
-  
-if (recipeAPIData.images && recipeAPIData.images.SMALL && recipeAPIData.url) {
-    recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
-    recipeURL.attr("href", recipeAPIData.url);
-    recipeURL.text(recipeAPIData.label);
-}
+      if (
+        recipeAPIData.images &&
+        recipeAPIData.images.SMALL &&
+        recipeAPIData.url
+      ) {
+        recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
+        recipeURL.attr("href", recipeAPIData.url);
+        recipeURL.text(recipeAPIData.label);
+      }
 
-let cookTimeNumber = recipeAPIData.totalTime;
-if (cookTimeNumber === 0) {
-  cookTimeEl.text("Cook Time: N/A");
-} else {
-  cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
-}
+      let cookTimeNumber = recipeAPIData.totalTime;
+      if (cookTimeNumber === 0) {
+        cookTimeEl.text("Cook Time: N/A");
+      } else {
+        cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
+      }
 
-if (recipeAPIData.yield) {
-  servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
-} else {
-  servingSizeEl.text("Serving Size: N/A");
-}
+      if (recipeAPIData.yield) {
+        servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
+      } else {
+        servingSizeEl.text("Serving Size: N/A");
+      }
 
-if (recipeAPIData.calories) {
-  caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
-} else {
-  caloriesEl.text("Calories: N/A");
-}
+      if (recipeAPIData.calories) {
+        caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
+      } else {
+        caloriesEl.text("Calories: N/A");
+      }
 
-    //append
-    recipeDivEl.append(recipeNameEl);
-    recipeDivEl.append(recipeImgEl);
-    recipeNameEl.append(recipeURL);
-    recipeDivEl.append(recipeInfoEl);
-    recipeInfoEl.append(cookTimeEl);
-    recipeInfoEl.append(servingSizeEl);
-    recipeInfoEl.append(caloriesEl);
-    parentDiv.append(recipeDivEl);
-    if (createButton) {
-      let saveRecipeBtn = $("<button>");
-      saveRecipeBtn.addClass("save-btn");
-      saveRecipeBtn.attr({ value: i });
-      saveRecipeBtn.text("Save");
-      recipeDivEl.append(saveRecipeBtn);
+      //append
+      recipeDivEl.append(recipeNameEl);
+      recipeDivEl.append(recipeImgEl);
+      recipeNameEl.append(recipeURL);
+      recipeDivEl.append(recipeInfoEl);
+      recipeInfoEl.append(cookTimeEl);
+      recipeInfoEl.append(servingSizeEl);
+      recipeInfoEl.append(caloriesEl);
+      parentDiv.append(recipeDivEl);
+      if (createButton) {
+        let saveRecipeBtn = $("<button>");
+        saveRecipeBtn.addClass("save-btn");
+        saveRecipeBtn.attr({ value: i });
+        saveRecipeBtn.text("Save");
+        recipeDivEl.append(saveRecipeBtn);
+      } else {
+        let removeRecipeBtn = $("<button>");
+        removeRecipeBtn.addClass("remove");
+        removeRecipeBtn.attr({ value: i });
+        removeRecipeBtn.text("Delete");
+        recipeDivEl.append(removeRecipeBtn);
+        removeRecipeBtn.click(() => {
+          recipeDivEl.remove();
+        });
+      }
     } else {
-      let removeRecipeBtn = $("<button>");
-      removeRecipeBtn.addClass("remove");
-      removeRecipeBtn.attr({ value: i });
-      removeRecipeBtn.text("Delete");
-      recipeDivEl.append(removeRecipeBtn);
-      removeRecipeBtn.click(() => {
-        recipeDivEl.remove();
-      });
+      console.error("Recipe data is missing or invalid.");
+      console.log("recipeData:", recipeData);
+      console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
-  } else {
-    console.error("Recipe data is missing or invalid.");
-    console.log("recipeData:", recipeData);
-    console.log("recipeData.hits:", recipeData && recipeData.hits);
-  }
   }
 
   // Function to get saved recipes from local storage
@@ -228,17 +235,15 @@ if (recipeAPIData.calories) {
     savedRecipeDiv.empty();
 
     if (recipeData && recipeData.hits) {
-    savedRecipes.forEach((recipe, i) => {
-      createRecipeEl(savedRecipeDiv,recipe,false);
-    });
+      savedRecipes.forEach((recipe, i) => {
+        createRecipeEl(savedRecipeDiv, recipe, false);
+      });
+    }
   }
-}
 
   $(document).ready(function () {
-
     recipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
 
     displaySavedRecipes();
-  })
+  });
 });
-
