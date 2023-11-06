@@ -3,80 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Search for a Cocktail</title>
 </head>
 <body>              
-<header>
-    <h1>Whats to drink?</h1>
-</header>
 
 
+
+
+
+<div class="container">
+    <header>
+        <h1>Whats to drink?</h1>
+    </header>
 <div class="columns">
-    <div class="column is-one-quarter" id="past-cocktails"><!--This is the left column showing previos items-->
+    <div class="column is-one-quarter"><!--This is the left column showing previos items-->
         <h2>Past Cocktails</h2>
     </div>
     <div class="column"><!--This is the part of the page that shows search results-->
-        <div class="columns">
-            <div class="column">
-                <h3>Let's get you some ideas!</h3>
+        <div class="columns cocktailSearch">
+            
+            <div id="cocktail">
+                <h1>Cocktails with Dinner</h1>
+                <p>Search type of alcohol and get a fun cocktail</p>
                 <form>
-                    <input class="inputText" placeholder="What are you hungry for?">
-                    <button class="sBtn"  id="searchBtn">
-                        Inspire me!
-                    </button>
+                    <input type="text" class="user-ingredient" placeholder="What are you thirsty for?">
+                    <button id="drinkSearchBtn" >Submit</button>
                 </form>
             </div>
         </div>
         
-        <div class="columns optionCon">
-            <div class="column option">
-                <p>option 1</p>
-            </div>
-            <div class="column option">
-                <p>option 2</p>   
-            </div>
-            <div class="column option">
-                <p>option 3</p>   
+        <div id="cocktail-div" class="columns cktResultsContainer">
+            <div >
+                <ul id="cocktail-list">
+                    <!-- <li> create <li> elements based on user input values and append to <ul> -->
+                </ul>
             </div>
         </div>
-        <div class="columns optionCon">
-            <div class="column option">
-                <p>option 4</p>
-            </div>
-            <div class="column option">
-                <p>option 5</p>   
-            </div>
-            <div class="column option">
-                <p>option 6</p>   
-            </div>
-        </div>
+        
     </div>
 </div>
-    <!-- RECIPE SEARCH FIELD -->
-        <!-- header with name of the app -->
-        <h1>Cocktails with Dinner</h1>
-        <!-- div container for the recipe searcher -->
-        <div id="cocktail">
-            <p>Search type of alcohol and get a fun cocktail</p>
-            <form>
-                <input type="text" class="user-ingredient">
-                <button id="drinkSearchBtn" >Submit</button>
-            </form>
-        </div>
-        <div id="cocktail-div">
-            <h1>Try these 3 random Cocktails</h1>
-            <!-- <h1># of cocktails</h1> -->
-            <ul id="cocktail-list">
-                <!-- <li> create <li> elements based on user input values and append to <ul> -->
-            </ul>
-        </div>
-        <!-- <div id="filters-div">
+</div>
+
+     
+        <div id="filters-div">
             <button>Filter1</button>
             <button>Filter2</button>
             <button>Filter3</button>
             <button>Filter4</button>
-        </div> -->
+        </div>
 
     <!-- SAVED RECIPES FIELD (MAX OF 5) -->
         <div id="saved-cocktail-container">
@@ -84,9 +60,9 @@
         </div>
 
     <!-- RECIPE RETURN FIELD -->
-        <!-- <div id="cocktail-container">
+        <div id="cocktail-container">
             <h1># of cocktails</h1>
-        </div> -->
+        </div>
     <!-- JAVASCRIPT CODED -->
         <!-- line 24-28 should be in a for loop for javascript -->
         <!-- seperate div containers for each recipe returned  -->
@@ -100,7 +76,7 @@
 
     <!-- RANDOM RECIPES TO TRY -->
     <div id="random-cocktail-container">
-        <!-- <h1>Try these 3 random Cocktails</h1> -->
+        <h1>Try these 3 random Cocktails</h1>
         <!-- JAVASCRIPT CODED -->
         <!-- line 36-37 should be in a forloop that generates 3 random recipes and store them to html-->
         <!-- images for random recipe with clickable area that redirects to recipe website -->
