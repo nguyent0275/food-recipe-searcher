@@ -2,9 +2,9 @@
 $(function () {
   let recipeData = {};
   let savedRecipesData = {};
-  // loadRecipes calls 3 functions to get user inputs and fetch from api
+  // loadRecipes calls 3 functions to get user inputs and fetch from api based on those inputs
   async function loadRecipes() {
-    let healthRequirements = getHealthReqs(); // string[]
+    let healthRequirements = getHealthReqs(); // string[array]
     let searchQuery = getSearchQuery(); // string
     let results = await searchDatabase(searchQuery, healthRequirements); // Promise <json data from the page>
     return results;
@@ -12,7 +12,9 @@ $(function () {
 
   // getting ingredients from user inputs to make a searchQuery
   function getSearchQuery() {
+    // selecting the labels of elements with the class ingredient-item
     let searchWords = $(".ingredient-item > label");
+    // turns searchWords into an array and then gets the innerText from each value and joins them together into a string
     let query = Array.from(searchWords)
       .map((e) => e.innerText)
       .join(" ");
@@ -26,6 +28,7 @@ $(function () {
     const vegan = $("#vegan").is(":checked");
     const dairyFree = $("#dairy-free").is(":checked");
     const glutenFree = $("#gluten-free").is(":checked");
+    // if any checkboxes are checked, the string value will be added to the healthReqsArray's empty array
     let healthReqsArray = [];
     if (vegetarian) {
       healthReqsArray.push("vegetarian");
@@ -39,7 +42,6 @@ $(function () {
     if (glutenFree) {
       healthReqsArray.push("gluten-free");
     }
-    console.log(healthReqsArray);
     return healthReqsArray;
   }
 
@@ -57,7 +59,9 @@ $(function () {
       mealType: "Dinner",
       q: searchQuery,
     };
+    // taking the object of searchParameters and convering them to URL format
     let urlSearchParams = new URLSearchParams(searchParameters);
+    // if there are health requirements, add each one to the url's search parameters
     if (healthRequirements.length !== 0) {
       for (let i = 0; i < healthRequirements.length; i++) {
         urlSearchParams.append("health", healthRequirements[i]);
@@ -106,6 +110,7 @@ $(function () {
   let savedRecipeDiv = $("#saved-recipe");
   $("#search").on("click", renderRecipes);
   async function renderRecipes() {
+    // await makes sure that recipeData gets a value after loadRecipes fully runs and returns a value (prevents recipeData = promise)
     recipeData = await loadRecipes();
     // on multiple searches, the html will be cleared for new search
     recipeContainer.children(".recipe").remove();
