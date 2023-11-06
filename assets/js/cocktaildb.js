@@ -43,7 +43,13 @@ $(function() {
 
           
           li.append(imgEl);
-          li.append(drinkName);
+
+          var drinkNameLink = $('<a>');
+          drinkNameLink.attr('href', 'https://www.google.com/search?q=' + encodeURIComponent(drinkName + 'cocktail recipe'));
+          drinkNameLink.attr('target', '_blank');
+          drinkNameLink.text(drinkName);
+          li.append(drinkNameLink);
+          // li.append(drinkName);
           cocktailListEl.append(li);
 
           var p = $('<p>');
@@ -60,17 +66,23 @@ $(function() {
 
     displayPastCocktails();
   }
+  
 
   function displayPastCocktails() {
     var pastCocktailsContainer = $('#past-cocktails');
     pastCocktailsContainer.empty();
 
-    for (var i = 0; i < pastCocktailsContainer.length; i++) {
+    for (var i = 0; i < pastCocktails.length; i++) {
       var pastCocktail = pastCocktails[i];
 
       var pastCocktailDiv = $('<div>');
       var pastCocktailName = $('<h2>');
-      pastCocktailName.text(pastCocktail.name);
+      var googleSearchLink = $('<a>');
+      googleSearchLink.attr('href', 'https://www.google.com/search?q=' + encodeURIComponent(pastCocktail.name + 'cocktail recipe'));
+      googleSearchLink.attr('target', '_blank');
+      googleSearchLink.text(pastCocktail.name);
+      pastCocktailName.append(googleSearchLink);
+      // pastCocktailName.text(pastCocktail.name);
 
       var pastCocktailThumbnail = $('<img>');
       pastCocktailThumbnail.attr({
