@@ -127,6 +127,11 @@ li img {
     height: 150px;
 }
 
+#cocktail-list {
+    display: flex;
+    
+}
+
 #cocktail-list li {
     font-size: 24px;
 }
