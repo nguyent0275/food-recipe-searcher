@@ -14,7 +14,7 @@
     <header>
       <h1>What's For Dinner</h1>
       <nav>
-        <button><a href="./drinks.html">Drinks</a></button>
+        <button class="navBtn"><a href="./drinks.html">Drinks</a></button>
       </nav>
     </header>
     <!--Start Left Colummn-->
@@ -59,15 +59,23 @@
             <button id="search" class="sBtn">Search</button>
           </div>
         </div>
+
         <div id="ingredients-div" class="column">
           <!--Below Search and Filters Div-->
-          <h3 class="ingredientsHeader">My Ingredients:</h3>
+          <h3 class="ingredientsHeader">My Ingredients</h3>
           <ul id="ingredient-list" class="foodList">
             <!-- <li> create <li> elements based on user input values and append to <ul> -->
           </ul>
         </div>
-        <div id="saved-recipe" class="column"></div>
-        <div id="recipe-container" class="column"></div>
+
+        <div id="saved-recipe" class="column"> 
+          <h3 class="recResults">My Saved Recipes</h3>
+       
+        </div>
+        <div id="recipe-container" class="column">
+          <h3 class="recResults">Try these amazing dishes!</h3>
+          
+        </div>
       </div>
     </div>
     <!--End of div clas='columns' id='recipe-searcher'-->
