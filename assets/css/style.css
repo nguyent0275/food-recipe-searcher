@@ -63,7 +63,7 @@ button.remove {
     padding: 2%;
 }
 
-.remove {
+.remove-btn {
     flex: 1 0 2%;
     margin-left: 5px;
     background-color: #d83e00;
