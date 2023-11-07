@@ -126,6 +126,14 @@ text-align: center;
 
 li img {
     height: 150px;
+    border: black 5px solid;
+    border-radius: 10px;
+}
+
+#past-cocktails img {
+    height: 150px;
+    border: black 5px solid;
+    border-radius: 10px;
 }
 
 #cocktail-list li {
