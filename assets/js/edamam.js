@@ -225,3 +225,4 @@ $(function () {
       console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
   }
+
