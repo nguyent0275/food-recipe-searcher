@@ -61,12 +61,12 @@ $(function () {
 
         var saveButton = $('<button>');
         saveButton.text('Save');
-        saveButton.click(function() {
-
+        saveButton.click({cocktail: drink}, function(event) {
+          var cocktailToSave = event.data.cocktail;
           pastCocktails.push({
-            name: drinkName,
+            name: cocktailToSave.strDrink,
             instructions: drinkInstructions,
-            thumbnail: drinkThumbnail, 
+            thumbnail: drinkThumbnail,
         });
         displayPastCocktails();
         });
@@ -96,17 +96,17 @@ $(function () {
       pastCocktailName.append(googleSearchLink);
       // pastCocktailName.text(pastCocktail.name);
 
-      var pastCocktailThumbnail = $("<img>");
-      pastCocktailThumbnail.attr({
-        alt: "",
-        src: pastCocktail.thumbnail,
-      });
+      // var pastCocktailThumbnail = $("<img>");
+      // pastCocktailThumbnail.attr({
+      //   alt: "",
+      //   src: pastCocktail.thumbnail,
+      // });
 
       var pastCocktailInstructions = $("<p>");
       pastCocktailInstructions.text(pastCocktail.instructions);
 
       pastCocktailDiv.append(pastCocktailName);
-      pastCocktailDiv.append(pastCocktailThumbnail);
+      // pastCocktailDiv.append(pastCocktailThumbnail);
       pastCocktailDiv.append(pastCocktailInstructions);
 
       pastCocktailsContainer.append(pastCocktailDiv);
