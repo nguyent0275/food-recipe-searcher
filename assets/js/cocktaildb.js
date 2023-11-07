@@ -68,7 +68,10 @@ $(function () {
             instructions: drinkInstructions,
             thumbnail: drinkThumbnail,
         });
+
+        localStorage.setItem("pastCocktails", JSON.stringify(pastCocktails));
         displayPastCocktails();
+
         });
         li.append(saveButton);
         cocktailListEl.append(li);
@@ -112,6 +115,12 @@ $(function () {
       pastCocktailsContainer.append(pastCocktailDiv);
     }
   }
+  var storedPastCocktails = localStorage.getItem("pastCocktails");
+  if (storedPastCocktails) {
+    pastCocktails = JSON.parse(storedPastCocktails);
+    displayPastCocktails();
+  }
+
 });
 
 function reposFetch(url) {
