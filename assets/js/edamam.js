@@ -141,7 +141,7 @@ $(function () {
     } else {
       console.error("Recipe data is missing or invalid.");
     }
-    localStorage.setItem()
+    localStorage.setItem(savedRecipeDiv, savedRecipeDiv.innerHTML)
   }
   // function for creating html elements based on api data (param 1 = where the function is being called, param 2 is how many times it is being called, param3 is the default boolean (it will create a button true=save-btn/false=delete-btn)
   function createRecipeEl(parentDiv, i, createButton) {
@@ -216,7 +216,6 @@ $(function () {
         removeRecipeBtn.text("Delete");
         recipeDivEl.append(removeRecipeBtn);
         removeRecipeBtn.click(() => {
-          removeRecipe(recipeData.id);
           recipeDivEl.remove();
         });
       }
@@ -225,5 +224,15 @@ $(function () {
       console.log("recipeData:", recipeData);
       console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
-}}
-);
+  }
+
+  function displaySavedRecipes() {
+    const savedRecipeDiv = localStorage.getItem("savedRecipeDiv");
+  
+  
+    if (savedRecipeDiv) {
+      savedRecipeDiv.innerHTML = savedRecipeData;
+    }
+  }
+
+});
