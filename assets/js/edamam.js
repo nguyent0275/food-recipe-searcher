@@ -82,6 +82,7 @@ $(function () {
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
+      
     }
     //create
     let ingredientItem = $("<li>");
@@ -123,7 +124,8 @@ $(function () {
     saveRecipe(value);
   });
 // this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
-localStorage.getItem("recipeName")
+let recipeLocalName = JSON.parse(localStorage.getItem("recipeName"))
+console.log(recipeLocalName)
   function saveRecipe(saveRecipeItemPosition) {
     console.log(saveRecipeItemPosition)
     // checking if all those fields return true (not undefined)
@@ -142,7 +144,9 @@ localStorage.getItem("recipeName")
     } else {
       console.error("Recipe data is missing or invalid.");
     }
+    // object/array that turns into a string
     localStorage.setItem("recipeName", recipeData.hits[saveRecipeItemPosition].recipe.label)
+    localStorage.setItem("recipeImg", recipeData.hits[saveRecipeItemPosition].recipe.images.SMALL.url)
   }
   // function for creating html elements based on api data (param 1 = where the function is being called, param 2 is how many times it is being called, param3 is the default boolean (it will create a button true=save-btn/false=delete-btn)
   function createRecipeEl(parentDiv, i, createButton) {
@@ -226,4 +230,5 @@ localStorage.getItem("recipeName")
       console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
   }
+
 })
