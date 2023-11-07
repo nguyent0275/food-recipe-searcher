@@ -42,6 +42,7 @@ $(function () {
 
         li.append(imgEl);
 
+
         var drinkNameLink = $("<a>");
         drinkNameLink.attr(
           "href",
@@ -52,21 +53,27 @@ $(function () {
         drinkNameLink.text(drinkName);
         li.append(drinkNameLink);
         // li.append(drinkName);
-        cocktailListEl.append(li);
+        // cocktailListEl.append(li);
 
         var p = $("<p>");
         p.text(drinkInstructions);
         cocktailListEl.append(p);
 
-        pastCocktails.push({
-          name: drinkName,
-          instructions: drinkInstructions,
-          thumbnail: drinkThumbnail,
+        var saveButton = $('<button>');
+        saveButton.text('Save');
+        saveButton.click(function() {
+
+          pastCocktails.push({
+            name: drinkName,
+            instructions: drinkInstructions,
+            thumbnail: drinkThumbnail, 
         });
+        displayPastCocktails();
+        });
+        li.append(saveButton);
+        cocktailListEl.append(li);
       }
     }
-
-    displayPastCocktails();
   }
 
   function displayPastCocktails() {
