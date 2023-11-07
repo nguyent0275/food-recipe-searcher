@@ -42,6 +42,7 @@ $(function () {
 
         li.append(imgEl);
 
+
         var drinkNameLink = $("<a>");
         drinkNameLink.attr(
           "href",
@@ -52,21 +53,30 @@ $(function () {
         drinkNameLink.text(drinkName);
         li.append(drinkNameLink);
         // li.append(drinkName);
-        cocktailListEl.append(li);
+        // cocktailListEl.append(li);
 
         var p = $("<p>");
         p.text(drinkInstructions);
         cocktailListEl.append(p);
 
-        pastCocktails.push({
-          name: drinkName,
-          instructions: drinkInstructions,
-          thumbnail: drinkThumbnail,
+        var saveButton = $('<button>');
+        saveButton.text('Save');
+        saveButton.click({cocktail: drink}, function(event) {
+          var cocktailToSave = event.data.cocktail;
+          pastCocktails.push({
+            name: cocktailToSave.strDrink,
+            instructions: drinkInstructions,
+            thumbnail: drinkThumbnail,
         });
+
+        localStorage.setItem("pastCocktails", JSON.stringify(pastCocktails));
+        displayPastCocktails();
+
+        });
+        li.append(saveButton);
+        cocktailListEl.append(li);
       }
     }
-
-    displayPastCocktails();
   }
 
   function displayPastCocktails() {
@@ -89,22 +99,28 @@ $(function () {
       pastCocktailName.append(googleSearchLink);
       // pastCocktailName.text(pastCocktail.name);
 
-      var pastCocktailThumbnail = $("<img>");
-      pastCocktailThumbnail.attr({
-        alt: "",
-        src: pastCocktail.thumbnail,
-      });
+      // var pastCocktailThumbnail = $("<img>");
+      // pastCocktailThumbnail.attr({
+      //   alt: "",
+      //   src: pastCocktail.thumbnail,
+      // });
 
       var pastCocktailInstructions = $("<p>");
       pastCocktailInstructions.text(pastCocktail.instructions);
 
       pastCocktailDiv.append(pastCocktailName);
-      pastCocktailDiv.append(pastCocktailThumbnail);
+      // pastCocktailDiv.append(pastCocktailThumbnail);
       pastCocktailDiv.append(pastCocktailInstructions);
 
       pastCocktailsContainer.append(pastCocktailDiv);
     }
   }
+  var storedPastCocktails = localStorage.getItem("pastCocktails");
+  if (storedPastCocktails) {
+    pastCocktails = JSON.parse(storedPastCocktails);
+    displayPastCocktails();
+  }
+
 });
 
 function reposFetch(url) {
