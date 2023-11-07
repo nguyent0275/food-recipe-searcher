@@ -55,8 +55,7 @@ $(function () {
         drinkNameLink.attr("target", "_blank");
         drinkNameLink.text(drinkName);
         li.append(drinkNameLink);
-        // li.append(drinkName);
-        // cocktailListEl.append(li);
+       
 
         var p = $("<p>");
         p.text(drinkInstructions);
@@ -75,8 +74,8 @@ $(function () {
 
         localStorage.setItem("pastCocktails", JSON.stringify(pastCocktails));
         displayPastCocktails();
-
         });
+
         li.append(saveButton);
         cocktailListEl.append(li);
       }
@@ -85,9 +84,10 @@ $(function () {
 
   function displayPastCocktails() {
     var pastCocktailsContainer = $("#past-cocktails");
+    var clearStorageBtn = $("#clearStorageBtn");
     pastCocktailsContainer.empty();
 
-    for (var i = 0; i < pastCocktails.length; i++) {
+    for (var i = 0; i < 3; i++) {
       var pastCocktail = pastCocktails[i];
 
       var pastCocktailDiv = $("<div>");
@@ -101,19 +101,12 @@ $(function () {
       googleSearchLink.attr("target", "_blank");
       googleSearchLink.text(pastCocktail.name);
       pastCocktailName.append(googleSearchLink);
-      // pastCocktailName.text(pastCocktail.name);
-
-      // var pastCocktailThumbnail = $("<img>");
-      // pastCocktailThumbnail.attr({
-      //   alt: "",
-      //   src: pastCocktail.thumbnail,
-      // });
+    
 
       var pastCocktailInstructions = $("<p>");
       pastCocktailInstructions.text(pastCocktail.instructions);
 
       pastCocktailDiv.append(pastCocktailName);
-      // pastCocktailDiv.append(pastCocktailThumbnail);
       pastCocktailDiv.append(pastCocktailInstructions);
 
       pastCocktailsContainer.append(pastCocktailDiv);
