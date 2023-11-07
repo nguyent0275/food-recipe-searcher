@@ -1,10 +1,9 @@
 // document on ready
 $(function () {
   let recipeData = {};
-  let savedRecipesData = {};
   // loadRecipes calls 3 functions to get user inputs and fetch from api based on those inputs
   async function loadRecipes() {
-    let healthRequirements = getHealthReqs(); // string[array]
+    let healthRequirements = getHealthReqs(); // array of strings
     let searchQuery = getSearchQuery(); // string
     let results = await searchDatabase(searchQuery, healthRequirements); // Promise <json data from the page>
     return results;
@@ -61,7 +60,7 @@ $(function () {
     };
     // taking the object of searchParameters and convering them to URL format
     let urlSearchParams = new URLSearchParams(searchParameters);
-    // if there are health requirements, add each one to the url's search parameters
+    // if there are health requirements, add each one to the url's search parameters (health=vegetarian+health=vegan)
     if (healthRequirements.length !== 0) {
       for (let i = 0; i < healthRequirements.length; i++) {
         urlSearchParams.append("health", healthRequirements[i]);
@@ -76,14 +75,13 @@ $(function () {
 
   // create click function that creates <li> elements based on user ingredients
   let ingredientList = $("#ingredient-list");
+  let modal = $('myModal')
   $("#add").on("click", renderIngredients);
   function renderIngredients(event) {
     event.preventDefault();
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
-      alert("Please enter an ingredient");
-      return;
     }
     //create
     let ingredientItem = $("<li>");
@@ -114,6 +112,7 @@ $(function () {
     recipeData = await loadRecipes();
     // on multiple searches, the html will be cleared for new search
     recipeContainer.children(".recipe").remove();
+    // createRecipeEl will be run 9 times in the recipeContainer <div> and create 9 save buttons(true)
     for (let i = 0; i < 9; i++) {
       createRecipeEl(recipeContainer, i, true);
     }
@@ -123,29 +122,28 @@ $(function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
-// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter
+// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
   function saveRecipe(saveRecipeItemPosition) {
+    console.log(saveRecipeItemPosition)
+    // checking if all those fields return true (not undefined)
     if (
       recipeData &&
       recipeData.hits &&
       recipeData.hits[saveRecipeItemPosition] &&
       recipeData.hits[saveRecipeItemPosition].recipe
     ) {
+      // set a max amount of saves to 3 recipes at a time
       const length = savedRecipeDiv.children(".recipe").length;
       if (length <= 2) {
-        const savedRecipesJSON = localStorage.getItem("savedRecipes");
-        const savedRecipes = savedRecipesJSON
-          ? JSON.parse(savedRecipesJSON)
-          : [];
-        savedRecipes.push(recipeData.hits[saveRecipeItemPosition].recipe);
-        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+        // param 1 is the div where the createRecipeEl will be used, param2 is the value (which recipe will be saved), param 3 is deciding which button will be created(true = save recipe / false = delete)
         createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
       }
     } else {
       console.error("Recipe data is missing or invalid.");
     }
+    localStorage.setItem()
   }
-  // function for creating html elements based on api data
+  // function for creating html elements based on api data (param 1 = where the function is being called, param 2 is how many times it is being called, param3 is the default boolean (it will create a button true=save-btn/false=delete-btn)
   function createRecipeEl(parentDiv, i, createButton) {
     if (recipeData && recipeData.hits && recipeData.hits.length > i) {
       let recipeAPIData = recipeData.hits[i].recipe;
@@ -164,7 +162,7 @@ $(function () {
       recipeImgEl.addClass("recipe-img");
       recipeNameEl.addClass("recipe-name");
       recipeInfoEl.addClass("recipe-info");
-
+      // setting text and attributes
       if (
         recipeAPIData.images &&
         recipeAPIData.images.SMALL &&
@@ -203,13 +201,15 @@ $(function () {
       recipeInfoEl.append(servingSizeEl);
       recipeInfoEl.append(caloriesEl);
       parentDiv.append(recipeDivEl);
+      // if true it will create a save button, else it will create a remove button
       if (createButton) {
         let saveRecipeBtn = $("<button>");
         saveRecipeBtn.addClass("save-btn");
         saveRecipeBtn.attr({ value: i });
         saveRecipeBtn.text("Save");
         recipeDivEl.append(saveRecipeBtn);
-      } else {
+      } 
+      else {
         let removeRecipeBtn = $("<button>");
         removeRecipeBtn.addClass("delete-btn");
         removeRecipeBtn.attr({ value: i });
@@ -225,36 +225,5 @@ $(function () {
       console.log("recipeData:", recipeData);
       console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
-  }
-
-  function removeRecipe(recipeId) {
-    const savedRecipes = displaySavedRecipes();
-    const updatedRecipes = savedRecipes.filter((recipe) => recipe.id !== recipeId);
-    localStorage.setItem("savedRecipes", JSON.stringify(updatedRecipes));
-  }
-
-  // Function to get saved recipes from local storage
-  function getSavedRecipes() {
-    savedRecipesJSON = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-    return savedRecipesJSON;
-  }
-  
-  //Function to display saved recipes
-  function displaySavedRecipes() {
-    const savedRecipes = getSavedRecipes();
-    console.log(savedRecipes);
-    const savedRecipeEl = $("#saved-recipe");
-    savedRecipeEl.empty();
-
-    savedRecipes.forEach((recipe, index) => {
-      createRecipeEl(savedRecipeEl, index, false);
-    })
-
-    }
-
-  $(document).ready(function () {
-    recipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
-
-    displaySavedRecipes();
-  });
-});
+}}
+);
