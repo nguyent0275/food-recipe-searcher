@@ -34,7 +34,9 @@ $(function () {
         var drinkThumbnail = drink.strDrinkThumb;
 
         var li = $("<li>");
+        li.addClass('drnkResults');
         var imgEl = $("<img>");
+        imgEl.addClass('drnkImg');
         imgEl.attr({
           alt: "",
           src: drinkThumbnail,
@@ -44,6 +46,7 @@ $(function () {
 
 
         var drinkNameLink = $("<a>");
+        drinkNameLink.addClass('drnkNm')
         drinkNameLink.attr(
           "href",
           "https://www.google.com/search?q=" +
@@ -60,6 +63,7 @@ $(function () {
 
         var saveButton = $('<button>');
         saveButton.text('Save');
+        saveButton.addClass('drinkSave')
         saveButton.click({cocktail: drink}, function(event) {
           var cocktailToSave = event.data.cocktail;
           pastCocktails.push({
