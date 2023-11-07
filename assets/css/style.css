@@ -108,7 +108,7 @@ li.ingredient-item {
     padding: 2%;
 } */
 
-.remove {
+.remove-btn {
     flex: 1 0 2%;
     margin-left: 5px;
     background-color: #d83e00;
@@ -177,6 +177,14 @@ text-align: center;
 
 li img {
     height: 150px;
+    border: black 5px solid;
+    border-radius: 10px;
+}
+
+#past-cocktails img {
+    height: 150px;
+    border: black 5px solid;
+    border-radius: 10px;
 }
 
 #cocktail-list li {
@@ -224,6 +232,4 @@ button#drinkSearchBtn {
     border: 1px solid #d83e00;
 
 }
-
-
 
