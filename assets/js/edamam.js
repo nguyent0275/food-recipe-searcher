@@ -72,17 +72,26 @@ $(function () {
     console.log(requestURL);
     return jsonData;
   }
+  // create modal for no user input
+  let errorModal = $("#error-modal");
+  let errorModalCloseBtn = $(".modal-close");
+  function openModal() {
+    errorModal.addClass("is-active");
+    errorModalCloseBtn.on("click", function () {
+      errorModal.removeClass("is-active");
+    });
+  }
 
   // create click function that creates <li> elements based on user ingredients
   let ingredientList = $("#ingredient-list");
-  let modal = $('myModal')
   $("#add").on("click", renderIngredients);
   function renderIngredients(event) {
     event.preventDefault();
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
-      
+      openModal()
+      return;
     }
     //create
     let ingredientItem = $("<li>");
@@ -123,11 +132,11 @@ $(function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
-// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
-let recipeLocalName = JSON.parse(localStorage.getItem("recipeName"))
-console.log(recipeLocalName)
+  // this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
+  let recipeLocalName = JSON.parse(localStorage.getItem("recipeName"));
+  console.log(recipeLocalName);
   function saveRecipe(saveRecipeItemPosition) {
-    console.log(saveRecipeItemPosition)
+    console.log(saveRecipeItemPosition);
     // checking if all those fields return true (not undefined)
     if (
       recipeData &&
@@ -145,8 +154,14 @@ console.log(recipeLocalName)
       console.error("Recipe data is missing or invalid.");
     }
     // object/array that turns into a string
-    localStorage.setItem("recipeName", recipeData.hits[saveRecipeItemPosition].recipe.label)
-    localStorage.setItem("recipeImg", recipeData.hits[saveRecipeItemPosition].recipe.images.SMALL.url)
+    localStorage.setItem(
+      "recipeName",
+      recipeData.hits[saveRecipeItemPosition].recipe.label
+    );
+    localStorage.setItem(
+      "recipeImg",
+      recipeData.hits[saveRecipeItemPosition].recipe.images.SMALL.url
+    );
   }
   // function for creating html elements based on api data (param 1 = where the function is being called, param 2 is how many times it is being called, param3 is the default boolean (it will create a button true=save-btn/false=delete-btn)
   function createRecipeEl(parentDiv, i, createButton) {
@@ -213,8 +228,7 @@ console.log(recipeLocalName)
         saveRecipeBtn.attr({ value: i });
         saveRecipeBtn.text("Save");
         recipeDivEl.append(saveRecipeBtn);
-      } 
-      else {
+      } else {
         let removeRecipeBtn = $("<button>");
         removeRecipeBtn.addClass("delete-btn");
         removeRecipeBtn.attr({ value: i });
@@ -230,5 +244,4 @@ console.log(recipeLocalName)
       console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
   }
-
-})
+});
