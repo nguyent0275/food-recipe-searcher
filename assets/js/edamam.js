@@ -91,7 +91,7 @@ $(function () {
     let itemLabel = $("<label>");
     //attr
     ingredientItem.addClass("ingredient-item");
-    removeButton.addClass("remove");
+    removeButton.addClass("remove-btn");
     itemLabel.text(userIngredient);
     removeButton.text("X");
     removeButton.click(() => {
@@ -123,7 +123,7 @@ $(function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
-
+// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter
   function saveRecipe(saveRecipeItemPosition) {
     if (
       recipeData &&
@@ -211,7 +211,7 @@ $(function () {
         recipeDivEl.append(saveRecipeBtn);
       } else {
         let removeRecipeBtn = $("<button>");
-        removeRecipeBtn.addClass("remove");
+        removeRecipeBtn.addClass("delete-btn");
         removeRecipeBtn.attr({ value: i });
         removeRecipeBtn.text("Delete");
         recipeDivEl.append(removeRecipeBtn);
