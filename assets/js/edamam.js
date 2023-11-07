@@ -207,10 +207,11 @@ $(function () {
       } else {
         let removeRecipeBtn = $("<button>");
         removeRecipeBtn.addClass("remove");
-        removeRecipeBtn.attr({ value: i });
+        removeRecipeBtn.attr({ value: recipeData.id });
         removeRecipeBtn.text("Delete");
         recipeDivEl.append(removeRecipeBtn);
         removeRecipeBtn.click(() => {
+          removeRecipe(recipeData.id);
           recipeDivEl.remove();
         });
       }
@@ -221,25 +222,106 @@ $(function () {
     }
   }
 
-  // Function to get saved recipes from local storage
-  function getSavedRecipes() {
-    const savedRecipesJSON = localStorage.getItem("savedRecipes");
-    return JSON.parse(savedRecipesJSON) || [];
+  function removeRecipe(recipeId) {
+    const savedRecipes = getSavedRecipes();
+    const updatedRecipes = savedRecipes.filter((recipe) => recipe.id !== recipeId);
+    localStorage.setItem("savedRecipes", JSON.stringify(updatedRecipes));
   }
 
+  // Function to get saved recipes from local storage
+  // const savedRecipesJSON = [];
+
+  // function getSavedRecipes() {
+  //   savedRecipesJSON.concat(JSON.parse(localStorage.getItem("savedRecipes")));
+  //   console.log(savedRecipesJSON);
+  //   return savedRecipesJSON;
+  // }
+  
+  const savedRecipesJSON = [];
   //Function to display saved recipes
   function displaySavedRecipes() {
-    const savedRecipes = getSavedRecipes();
-    const savedRecipeDiv = $("#saved-recipe");
+    const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
+    // const savedRecipes = getSavedRecipes();
+    console.log(savedRecipes);
+    const savedRecipeEl = $("#saved-recipe");
+    const savedRecipeDiv = $("<div>")
 
-    savedRecipeDiv.empty();
+    // savedRecipeDiv.empty();
+    if (savedRecipes.length > 0){
+    const recipeDivEl = $("<div>");
+    const recipeImgEl = $("<img>");
+    const recipeURL = $("<a>");
+    const recipeNameEl = $("<h2>");
+    const recipeInfoEl = $("<ul>");
+    const cookTimeEl = $("<li>");
+    const servingSizeEl = $("<li>");
+    const caloriesEl = $("<li>");
 
-    if (recipeData && recipeData.hits) {
-      savedRecipes.forEach((recipe, i) => {
-        createRecipeEl(savedRecipeDiv, recipe, false);
+    recipeDivEl.addClass("recipe");
+    recipeURL.addClass("url");
+    recipeImgEl.addClass("recipe-img");
+    recipeNameEl.addClass("recipe-name");
+    recipeInfoEl.addClass("recipe-info");
+
+    if (
+      recipe.images &&
+      recipe.images.SMALL &&
+      recipe.url
+    ) {
+      recipeImgEl.attr("src", recipe.images.SMALL.url);
+      recipeURL.attr("href", recipe.url);
+      recipeURL.text(recipe.label);
+    }
+
+    const cookTimeNumber = recipe.totalTime;
+    if (cookTimeNumber === 0) {
+      cookTimeEl.text("Cook Time: N/A");
+    } else {
+      cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
+    }
+
+    if (recipe.yield) {
+      servingSizeEl.text("Serving Size: " + recipe.yield);
+    } else {
+      servingSizeEl.text("Serving Size: N/A");
+    }
+
+    if (recipe.calories) {
+      caloriesEl.text("Calories: " + Math.round(recipe.calories));
+    } else {
+      caloriesEl.text("Calories: N/A");
+    }
+
+    savedRecipeDiv.append(recipeNameEl);
+    savedRecipeDiv.append(recipeImgEl);
+    recipeNameEl.append(recipeURL);
+    savedRecipeDiv.append(recipeInfoEl);
+    recipeInfoEl.append(cookTimeEl);
+    recipeInfoEl.append(servingSizeEl);
+    recipeInfoEl.append(caloriesEl);
+    savedRecipeEl.append(savedRecipeDiv);
+    if (createButton) {
+      const saveRecipeBtn = $("<button>");
+      saveRecipeBtn.addClass("save-btn");
+      saveRecipeBtn.attr({ value: i });
+      saveRecipeBtn.text("Save");
+      savedRecipeDiv.append(saveRecipeBtn);
+    } else {
+      const removeRecipeBtn = $("<button>");
+      removeRecipeBtn.addClass("remove");
+      removeRecipeBtn.attr({ value: recipeData.id });
+      removeRecipeBtn.text("Delete");
+      savedRecipeDiv.append(removeRecipeBtn);
+      removeRecipeBtn.click(() => {
+        removeRecipe(recipeData.id);
+        savedRecipeDiv.remove();
       });
     }
+    }
   }
+  savedRecipesJSON.forEach(recipe => displaySavedRecipes(recipe))
+
+  // savedRecipes.forEach(recipe => displaySavedRecipes(recipe))
 
   $(document).ready(function () {
     recipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
