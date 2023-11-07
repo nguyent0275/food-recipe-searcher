@@ -10,13 +10,13 @@
   <body>
     <div class="container">
       <header>
-        <h1>Whats to drink?</h1>
+        <h1>What are we drinking?</h1>
         <nav>
             <button class="navBtn"><a href="./index.html">Dinner</a></button>
           </nav>
       </header>
       <div class="columns">
-        <div class="column is-one-quarter">
+        <div class="column is-one-quarter" id="past-cocktails">
           <!--This is the left column showing previos items-->
           <h2>Past Cocktails</h2>
         </div>
@@ -37,8 +37,9 @@
             </div>
           </div>
 
-          <div id="cocktail-div" class="columns cktResultsContainer">
-            <div>
+          <div id="cocktail-div" class="columns cktResultsContainer is-multiline">
+            <h3 class="recResults column is-full">Try thes refreshing beverages!</h3>
+            <div class="column is-full">
               <ul id="cocktail-list">
                 <!-- <li> create <li> elements based on user input values and append to <ul> -->
               </ul>
