@@ -122,8 +122,9 @@ $(function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
-// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter
+// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
   function saveRecipe(saveRecipeItemPosition) {
+    console.log(saveRecipeItemPosition)
     // checking if all those fields return true (not undefined)
     if (
       recipeData &&
@@ -134,18 +135,13 @@ $(function () {
       // set a max amount of saves to 3 recipes at a time
       const length = savedRecipeDiv.children(".recipe").length;
       if (length <= 2) {
-        const savedRecipesJSON = localStorage.getItem("savedRecipes");
-        const savedRecipes = savedRecipesJSON
-          ? JSON.parse(savedRecipesJSON)
-          : [];
-        savedRecipes.push(recipeData.hits[saveRecipeItemPosition].recipe);
-        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
         // param 1 is the div where the createRecipeEl will be used, param2 is the value (which recipe will be saved), param 3 is deciding which button will be created(true = save recipe / false = delete)
         createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
       }
     } else {
       console.error("Recipe data is missing or invalid.");
     }
+    localStorage.setItem()
   }
   // function for creating html elements based on api data (param 1 = where the function is being called, param 2 is how many times it is being called, param3 is the default boolean (it will create a button true=save-btn/false=delete-btn)
   function createRecipeEl(parentDiv, i, createButton) {
@@ -229,30 +225,3 @@ $(function () {
       console.log("recipeData.hits:", recipeData && recipeData.hits);
     }
   }
-
-  // Function to get saved recipes from local storage
-  function getSavedRecipes() {
-    const savedRecipesJSON = localStorage.getItem("savedRecipes");
-    return JSON.parse(savedRecipesJSON) || [];
-  }
-
-  //Function to display saved recipes
-  function displaySavedRecipes() {
-    const savedRecipes = getSavedRecipes();
-    const savedRecipeDiv = $("#saved-recipe");
-
-    savedRecipeDiv.empty();
-
-    if (recipeData && recipeData.hits) {
-      savedRecipes.forEach((recipe, i) => {
-        createRecipeEl(savedRecipeDiv, recipe, false);
-      });
-    }
-  }
-
-  $(document).ready(function () {
-    recipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
-
-    // displaySavedRecipes();
-  });
-});
