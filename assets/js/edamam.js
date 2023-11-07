@@ -244,6 +244,6 @@ $(function () {
   $(document).ready(function () {
     recipeData = JSON.parse(localStorage.getItem("recipeData")) || [];
 
-    displaySavedRecipes();
+    // displaySavedRecipes();
   });
 });

@@ -1,5 +1,8 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 
+
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
+
 body {
 background-color: #f9f9f9;
 overflow-x: hidden;
@@ -11,7 +14,26 @@ header {
     padding: 2%;
     text-align: left;
     font-size: 150%;
+    font-family: Agbalumo;
+    font-size: 300%;
+    display: flex;
+    flex-wrap: wrap;
 }
+
+header > h1 {
+    flex: auto;
+}
+
+.navBtn {
+    flex: 50%;
+    background-color: bisque;
+    color: white;
+    padding: 2%;
+    border-radius: 10px;
+    font-size: 80%;
+}
+
+
 
 .column {
     /* border: 1px solid black; */
@@ -40,28 +62,51 @@ h3 {
     margin: 0 2%;
 }
 
+button#search.sBtn {
+    border: 1px solid #d83e00;
+    border-radius: 5px;
+    background-color: #573D37;
+    color: white;
+    font-weight: bolder;
+
+}
+
+
 div#ingredients-div.column {
     border: 1px solid black;
     border-radius: 10px;
     border-color: #d83e00;
 }
 
+div#saved-recipe.column {
+    margin: 2% 0;
+    border: 1px solid black;
+    border-radius: 10px;
+    border-color: #d83e00;
+    min-height: 100px;
+}
 
 ul#ingredient-list.foodList {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
 }
 
 
 li.ingredient-item {
-    flex: 0 0 10%;
-    justify-content: flex-start;
+    flex: auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-right: 25px;
+    margin-top: 25px;
 }
 
-button.remove {
+/* button.remove {
     margin-left: 10px;
     padding: 2%;
-}
+} */
 
 .remove {
     flex: 1 0 2%;
@@ -82,6 +127,12 @@ button.remove {
     border: 1px solid black;
     border-radius: 10px;
     border-color: #d83e00;
+    min-height: 100px;
+}
+
+.recResults {
+    width: 100%;
+    text-align: left;
 }
 
 #saved-recipe {
@@ -170,6 +221,8 @@ input.user-ingredient {
 
 button#drinkSearchBtn {
     padding: 1%;
+    border: 1px solid #d83e00;
+
 }
 
 
