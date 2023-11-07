@@ -132,16 +132,25 @@ $(function () {
       recipeData.hits[saveRecipeItemPosition] &&
       recipeData.hits[saveRecipeItemPosition].recipe
     ) {
-      // set a max amount of saves to 3 recipes at a time
-      const length = savedRecipeDiv.children(".recipe").length;
-      if (length <= 2) {
+
+      const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+
+    const savedRecipe = {
+      name: recipeData.hits[saveRecipeItemPosition].recipe.label,
+      image: recipeData.hits[saveRecipeItemPosition].recipe.images.SMALL.url,
+      cookTime: recipeData.hits[saveRecipeItemPosition].recipe.totalTime,
+      calories: recipeData.hits[saveRecipeItemPosition].recipe.calories,
+      servingSize: recipeData.hits[saveRecipeItemPosition].recipe.yield,
+      url: recipeData.hits[saveRecipeItemPosition].recipe.url,
+    };
         // param 1 is the div where the createRecipeEl will be used, param2 is the value (which recipe will be saved), param 3 is deciding which button will be created(true = save recipe / false = delete)
+        savedRecipes.push(savedRecipe);
+        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
         createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
-      }
+  // }
     } else {
       console.error("Recipe data is missing or invalid.");
     }
-    localStorage.setItem()
   }
   // function for creating html elements based on api data (param 1 = where the function is being called, param 2 is how many times it is being called, param3 is the default boolean (it will create a button true=save-btn/false=delete-btn)
   function createRecipeEl(parentDiv, i, createButton) {
@@ -226,3 +235,9 @@ $(function () {
     }
   }
 
+  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+  for (let i = 0; i < savedRecipes.length; i++) {
+    createRecipeEl(savedRecipeDiv, i, false);
+  }
+
+});
