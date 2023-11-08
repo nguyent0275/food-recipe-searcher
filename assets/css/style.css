@@ -377,3 +377,20 @@ button#drinkSearchBtn {
 
 }
 
+button#clearStorageBtn {
+    position: absolute;
+    left: 30px;
+    bottom: 10px;
+    height: 10%;
+    width: 15%;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #573D37;
+    cursor: pointer;
+}
+
+#clearStorageBtn:hover{
+    background-color:#d83e00;
+    color: #fff;
+}
+
