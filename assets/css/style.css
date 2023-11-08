@@ -83,15 +83,18 @@ ol li {
   }
 
 .box ul li p {
-    background-color: yellow;
+    width: 100%;
+    margin-left: 10%;
+    padding-right: 15%;
 }
   
 .box ul li span {
+    float: left;
     width: 20px;
     height: 20px;
     text-align: center;
     line-height: 20px;
-    background: #25bcff;
+    background: #573D37;
     color: #fff;
     display: inline-block;
     border-radius: 50%;
@@ -195,10 +198,10 @@ li.ingredient-item {
     flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 0%;
-    /* background-color: blue; */
 }
 
 .recipe {
+    z-index: 1;
     flex: 0 0 33%;
     justify-content: center;
     margin-bottom: 3%;
@@ -289,23 +292,23 @@ ul#cocktail-list > p{
     
 }
 
-.drinkSave {
+button.drinkSave {
     display: flex;
-    justify-content: baseline;
-    border: 1px solid #d83e00;
+    justify-content: center;
+    flex: 0 1 10%;
+    padding: 2% 5%;
     border-radius: 5px;
-    background-color: #573D37;
     color: white;
+    background-color: #573D37;
+    border: 1px solid #d83e00;
     font-weight: bolder;
+    width: 50%;
+    margin: 0 25%;
 }
 
 .drnkNm {
     display: block;
 }
-
-/* .drnkImg {
-    margin: 0 20px;
-} */
 
 button#drinkSearchBtn {
     border: 1px solid #d83e00;
@@ -337,8 +340,20 @@ button#drinkSearchBtn {
 
 button.save-btn {
     margin: 2% 42%;
-    color: blue;
-    padding: 2%;
+    color: white;
+    padding: 2% 5%;
+    background-color: #573D37;
+    border-radius: 10px;
+    
+}
+
+button.delete-btn {
+    margin: 2% 42%;
+    color: white;
+    padding: 2% 5%;
+    background-color: #573D37;
+    border-radius: 10px;
+    
 }
 
 div.columns.cocktailSearch {
@@ -377,20 +392,24 @@ button#drinkSearchBtn {
 
 }
 
-button#clearStorageBtn {
+
+.underlay {
     position: absolute;
-    left: 30px;
-    bottom: 10px;
-    height: 10%;
-    width: 15%;
-    color: #fff;
-    border-radius: 5px;
-    background-color: #573D37;
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    top: calc(50% - 12px);
+    left: calc(50% - 12px);
 }
 
-#clearStorageBtn:hover{
-    background-color:#d83e00;
-    color: #fff;
+#saved-recipe {
+    position: relative;
 }
 
+#ingredients-div {
+    position: relative;
+}
+
+#recipe-container {
+    position: relative;
+}
