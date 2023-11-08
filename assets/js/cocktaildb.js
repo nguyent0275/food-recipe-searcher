@@ -127,25 +127,44 @@ $(function () {
 
       pastCocktailsContainer.append(pastCocktailDiv);
     }
+    var storedPastCocktails = localStorage.getItem("pastCocktails");
+    if (storedPastCocktails) {
+      pastCocktails = JSON.parse(storedPastCocktails);
+      displayPastCocktails();
+    }
+  
+  
+  
+    $('#clearStorageBtn').click(function () {
+      pastCocktails = [];
+      localStorage.removeItem("#past-cocktails");
+      displayPastCocktails();
+    })
+  
+    function removePastCocktail(index) {
+      pastCocktails.splice(index, 1);
+      localStorage.setItem("#past-cocktails", JSON.stringify (pastCocktails));
+      displayPastCocktails();
+    }
   }
-  var storedPastCocktails = localStorage.getItem("pastCocktails");
-  if (storedPastCocktails) {
-    pastCocktails = JSON.parse(storedPastCocktails);
-    displayPastCocktails();
-  }
+  // var storedPastCocktails = localStorage.getItem("pastCocktails");
+  // if (storedPastCocktails) {
+  //   pastCocktails = JSON.parse(storedPastCocktails);
+  //   displayPastCocktails();
+  // }
 
 
 
-  $('#clearStorageBtn').click(function () {
-    pastCocktails = [];
-    localStorage.removeItem("#past-cocktails");
-    displayPastCocktails();
-  })
+  // $('#clearStorageBtn').click(function () {
+  //   pastCocktails = [];
+  //   localStorage.removeItem("#past-cocktails");
+  //   displayPastCocktails();
+  // })
 
-  function removePastCocktail(index) {
-    pastCocktails.splice(index, 1);
-    localStorage.setItem("#past-cocktails", JSON.stringify (pastCocktails));
-    displayPastCocktails();
-  }
+  // function removePastCocktail(index) {
+  //   pastCocktails.splice(index, 1);
+  //   localStorage.setItem("#past-cocktails", JSON.stringify (pastCocktails));
+  //   displayPastCocktails();
+  // }
 });
 
