@@ -72,16 +72,33 @@ $(function () {
     console.log(requestURL);
     return jsonData;
   }
+  // create modal for no user input
+  let errorModal = $("#error-modal");
+  let errorModalCloseBtn = $(".modal-close");
+  function closeModal() {
+    errorModal.removeClass("is-active")
+  }
+  function openModal() {
+    errorModal.addClass("is-active");
+    errorModal.children().on('click', closeModal)
+    errorModalCloseBtn.on("click", closeModal);
+    $(document).on('keydown', (event) => {
+      if (event.key === 'Escape'){
+        closeModal()
+      }
+    })
+  }
 
   // create click function that creates <li> elements based on user ingredients
   let ingredientList = $("#ingredient-list");
-  let modal = $('myModal')
   $("#add").on("click", renderIngredients);
   function renderIngredients(event) {
     event.preventDefault();
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
+      openModal()
+      return;
     }
     //create
     let ingredientItem = $("<li>");
@@ -122,9 +139,11 @@ $(function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
-// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
+  // this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
+  let recipeLocalName = JSON.parse(localStorage.getItem("recipeName"));
+  console.log(recipeLocalName);
   function saveRecipe(saveRecipeItemPosition) {
-    console.log(saveRecipeItemPosition)
+    console.log(saveRecipeItemPosition);
     // checking if all those fields return true (not undefined)
     if (
       recipeData &&
@@ -217,8 +236,7 @@ $(function () {
         saveRecipeBtn.attr({ value: i });
         saveRecipeBtn.text("Save");
         recipeDivEl.append(saveRecipeBtn);
-      } 
-      else {
+      } else {
         let removeRecipeBtn = $("<button>");
         removeRecipeBtn.addClass("delete-btn");
         removeRecipeBtn.attr({ value: i });
