@@ -171,36 +171,36 @@ $(function () {
       recipeImgEl.addClass("recipe-img");
       recipeNameEl.addClass("recipe-name");
       recipeInfoEl.addClass("recipe-info");
-      // setting text and attributes
-      if (
-        recipeAPIData.images &&
-        recipeAPIData.images.SMALL &&
-        recipeAPIData.url
-      ) {
-        recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
-        recipeURL.attr("href", recipeAPIData.url);
-        recipeURL.text(recipeAPIData.label);
+     
+      {
+        recipeImgEl.attr("src", recipeAPIData.image);
+        recipeURL.attr("href", recipeAPIData.url || recipeAPIData.uri);
+        recipeURL.text(recipeAPIData.name || recipeAPIData.label);
       }
 
-      let cookTimeNumber = recipeAPIData.totalTime;
-      if (cookTimeNumber === 0) {
+      let cookTimeNumber = recipeAPIData.cookTime;
+      console.log(recipeAPIData.totalTime);
+      if (!recipeAPIData.cookTime && !recipeAPIData.totalTime) {
         cookTimeEl.text("Cook Time: N/A");
-      } else {
-        cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
+      } else if (recipeAPIData.cookTime){
+        cookTimeEl.text("Cook Time: " + recipeAPIData.cookTime + " min");
       }
 
-      if (recipeAPIData.yield) {
-        servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
-      } else {
+      else {cookTimeEl.text("Cook Time: " + recipeAPIData.totalTime + " min")}
+       if (!recipeAPIData.servingSize && !recipeAPIData.yield) {
         servingSizeEl.text("Serving Size: N/A");
-      }
 
+      } else if (recipeAPIData.servingSize) {
+        servingSizeEl.text("Serving Size: " + recipeAPIData.servingSize);
+      }
+      else {servingSizeEl.text("Serving Size: " + recipeAPIData.yield)};
       if (recipeAPIData.calories) {
         caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
       } else {
         caloriesEl.text("Calories: N/A");
       }
 
+      
       //append
       recipeDivEl.append(recipeNameEl);
       recipeDivEl.append(recipeImgEl);
@@ -225,9 +225,12 @@ $(function () {
         removeRecipeBtn.text("Delete");
         recipeDivEl.append(removeRecipeBtn);
         removeRecipeBtn.click(() => {
+          const index = removeRecipeBtn.attr("value");
+          deleteSavedRecipe(index);
+
           recipeDivEl.remove();
         });
-      }
+      } 
     } else {
       console.error("Recipe data is missing or invalid.");
       console.log("recipeData:", recipeData);
@@ -235,9 +238,27 @@ $(function () {
     }
   }
 
+  function loadSavedRecipes() {
+  
   const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+  recipeData = {
+    hits: savedRecipes.map(savedRecipe => ({ recipe: savedRecipe})),
+  };
   for (let i = 0; i < savedRecipes.length; i++) {
     createRecipeEl(savedRecipeDiv, i, false);
   }
+}
+
+function deleteSavedRecipe(index) {
+  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+  if (index >= 0 && index < savedRecipes.length) {
+    savedRecipes.splice(index, 1);
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+  }
+}
+
+$(document).ready(function() {
+  loadSavedRecipes();
+})
 
 });
