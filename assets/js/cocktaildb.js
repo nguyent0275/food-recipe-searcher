@@ -134,6 +134,8 @@ $(function () {
     displayPastCocktails();
   }
 
+
+
   $('#clearStorageBtn').click(function () {
     pastCocktails = [];
     localStorage.removeItem("#past-cocktails");
