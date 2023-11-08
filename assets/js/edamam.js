@@ -80,6 +80,11 @@ $(function () {
     errorModalCloseBtn.on("click", function () {
       errorModal.removeClass("is-active");
     });
+    $(document).on('keydown', (event) => {
+      if (event.key === 'Escape'){
+        errorModal.removeClass("is-active")
+      }
+    })
   }
 
   // create click function that creates <li> elements based on user ingredients
