@@ -73,7 +73,7 @@ $(function () {
             thumbnail: savedThumbnail,
         });
 
-        localStorage.setItem("pastCocktails", JSON.stringify(pastCocktails));
+        localStorage.setItem("#past-cocktails", JSON.stringify(pastCocktails));
         displayPastCocktails();
         });
 
@@ -85,7 +85,6 @@ $(function () {
 
   function displayPastCocktails() {
     var pastCocktailsContainer = $("#past-cocktails");
-    var clearStorageBtn = $("#clearStorageBtn");
     pastCocktailsContainer.empty();
 
     for (var i = 0; i < 3; i++) {
@@ -118,7 +117,7 @@ $(function () {
       clearButton.click(function() {
         removePastCocktail(index);
       });
-    })(i);
+    })(i)
 
       pastCocktailDiv.append(pastCocktailImage);
       pastCocktailDiv.append(pastCocktailName);
@@ -128,19 +127,11 @@ $(function () {
       pastCocktailsContainer.append(pastCocktailDiv);
     }
   }
-  var storedPastCocktails = localStorage.getItem("pastCocktails");
+  var storedPastCocktails = localStorage.getItem("#past-cocktails");
   if (storedPastCocktails) {
     pastCocktails = JSON.parse(storedPastCocktails);
     displayPastCocktails();
   }
-
-
-
-  $('#clearStorageBtn').click(function () {
-    pastCocktails = [];
-    localStorage.removeItem("#past-cocktails");
-    displayPastCocktails();
-  })
 
   function removePastCocktail(index) {
     pastCocktails.splice(index, 1);
