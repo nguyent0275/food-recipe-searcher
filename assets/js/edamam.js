@@ -134,14 +134,31 @@ $(function () {
       createRecipeEl(recipeContainer, i, true);
     }
   }
+
+  const maxSavedRecipes = 6;
+
   // create click function for save button that recreates the saved recipe under the saved recipe div
   $("#recipe-container").on("click", ".save-btn", function () {
     const value = $(this).attr("value");
+
+    const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+
+    if (savedRecipes.length >= maxSavedRecipes) {
+
+      openModal();
+      $("#modal-text").text("You can only save up to 6 recipes.");
+    
+
+      return;
+      
+    }
+
     saveRecipe(value);
+    checkMaxSavedRecipes();
   });
   // this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
   let recipeLocalName = JSON.parse(localStorage.getItem("recipeName"));
-  console.log(recipeLocalName);
+
   function saveRecipe(saveRecipeItemPosition) {
     console.log(saveRecipeItemPosition);
     // checking if all those fields return true (not undefined)
@@ -164,6 +181,9 @@ $(function () {
     };
         // param 1 is the div where the createRecipeEl will be used, param2 is the value (which recipe will be saved), param 3 is deciding which button will be created(true = save recipe / false = delete)
         savedRecipes.push(savedRecipe);
+
+        checkMaxSavedRecipes();
+
         localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
         createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
   // }
@@ -256,7 +276,24 @@ $(function () {
     }
   }
 
-  function loadSavedRecipes() {
+
+function checkMaxSavedRecipes() {
+  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+  if (savedRecipes.length > maxSavedRecipes) {
+    savedRecipes.splice(maxSavedRecipes);
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+  }
+}
+
+function checkMaxSavedRecipesOnPage() {
+  if ($(".recipe").length >= maxSavedRecipes) {
+    $(".save-btn").prop("disabled", true);
+  } else {
+    $(".save-btn").prop("disabled", false);
+  }
+}
+
+function loadSavedRecipes() {
   
   const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
   recipeData = {
@@ -265,6 +302,7 @@ $(function () {
   for (let i = 0; i < savedRecipes.length; i++) {
     createRecipeEl(savedRecipeDiv, i, false);
   }
+  checkMaxSavedRecipesOnPage();
 }
 
 function deleteSavedRecipe(index) {
@@ -273,10 +311,12 @@ function deleteSavedRecipe(index) {
     savedRecipes.splice(index, 1);
     localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
   }
+  checkMaxSavedRecipes();
 }
 
 $(document).ready(function() {
   loadSavedRecipes();
+  checkMaxSavedRecipes();
 })
 
 });
