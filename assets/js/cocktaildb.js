@@ -120,7 +120,6 @@ $(function () {
   $('#clearStorageBtn').click(function () {
     pastCocktails = [];
     localStorage.removeItem("#past-cocktails");
-    // localStorage.setItem("#past-cocktails", JSON.stringify(pastCocktails));
     displayPastCocktails();
   })
 
