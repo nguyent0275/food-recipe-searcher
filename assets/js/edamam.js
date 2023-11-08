@@ -75,14 +75,16 @@ $(function () {
   // create modal for no user input
   let errorModal = $("#error-modal");
   let errorModalCloseBtn = $(".modal-close");
+  function closeModal() {
+    errorModal.removeClass("is-active")
+  }
   function openModal() {
     errorModal.addClass("is-active");
-    errorModalCloseBtn.on("click", function () {
-      errorModal.removeClass("is-active");
-    });
+    errorModal.children().on('click', closeModal)
+    errorModalCloseBtn.on("click", closeModal);
     $(document).on('keydown', (event) => {
       if (event.key === 'Escape'){
-        errorModal.removeClass("is-active")
+        closeModal()
       }
     })
   }
