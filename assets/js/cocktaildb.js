@@ -144,7 +144,3 @@ function reposFetch(url) {
     }
   });
 }
-
-var userName = "";
-
-reposFetchFetch(userName);

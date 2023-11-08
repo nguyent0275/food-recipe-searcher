@@ -72,21 +72,19 @@ $(function () {
     console.log(requestURL);
     return jsonData;
   }
-  // create modal for no user input
-  let errorModal = $("#error-modal");
-  let errorModalCloseBtn = $(".modal-close");
-  function closeModal() {
-    errorModal.removeClass("is-active")
-  }
+  // create modal for error displau on no user input
   function openModal() {
+    let errorModal = $("#error-modal");
     errorModal.addClass("is-active");
-    errorModal.children().on('click', closeModal)
-    errorModalCloseBtn.on("click", closeModal);
-    $(document).on('keydown', (event) => {
-      if (event.key === 'Escape'){
-        closeModal()
+    function closeModal() {
+      errorModal.removeClass("is-active");
+    }
+    errorModal.children().on("click", closeModal);
+    $(document).on("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeModal();
       }
-    })
+    });
   }
 
   // create click function that creates <li> elements based on user ingredients
@@ -97,7 +95,7 @@ $(function () {
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
-      openModal()
+      openModal();
       return;
     }
     //create
@@ -151,22 +149,22 @@ $(function () {
       recipeData.hits[saveRecipeItemPosition] &&
       recipeData.hits[saveRecipeItemPosition].recipe
     ) {
+      const savedRecipes =
+        JSON.parse(localStorage.getItem("savedRecipes")) || [];
 
-      const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-
-    const savedRecipe = {
-      name: recipeData.hits[saveRecipeItemPosition].recipe.label,
-      image: recipeData.hits[saveRecipeItemPosition].recipe.images.SMALL.url,
-      cookTime: recipeData.hits[saveRecipeItemPosition].recipe.totalTime,
-      calories: recipeData.hits[saveRecipeItemPosition].recipe.calories,
-      servingSize: recipeData.hits[saveRecipeItemPosition].recipe.yield,
-      url: recipeData.hits[saveRecipeItemPosition].recipe.url,
-    };
-        // param 1 is the div where the createRecipeEl will be used, param2 is the value (which recipe will be saved), param 3 is deciding which button will be created(true = save recipe / false = delete)
-        savedRecipes.push(savedRecipe);
-        localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
-        createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
-  // }
+      const savedRecipe = {
+        name: recipeData.hits[saveRecipeItemPosition].recipe.label,
+        image: recipeData.hits[saveRecipeItemPosition].recipe.images.SMALL.url,
+        cookTime: recipeData.hits[saveRecipeItemPosition].recipe.totalTime,
+        calories: recipeData.hits[saveRecipeItemPosition].recipe.calories,
+        servingSize: recipeData.hits[saveRecipeItemPosition].recipe.yield,
+        url: recipeData.hits[saveRecipeItemPosition].recipe.url,
+      };
+      // param 1 is the div where the createRecipeEl will be used, param2 is the value (which recipe will be saved), param 3 is deciding which button will be created(true = save recipe / false = delete)
+      savedRecipes.push(savedRecipe);
+      localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+      createRecipeEl(savedRecipeDiv, saveRecipeItemPosition, false);
+      // }
     } else {
       console.error("Recipe data is missing or invalid.");
     }
@@ -190,7 +188,7 @@ $(function () {
       recipeImgEl.addClass("recipe-img");
       recipeNameEl.addClass("recipe-name");
       recipeInfoEl.addClass("recipe-info");
-     
+
       {
         recipeImgEl.attr("src", recipeAPIData.image);
         recipeURL.attr("href", recipeAPIData.url || recipeAPIData.uri);
@@ -201,25 +199,24 @@ $(function () {
       console.log(recipeAPIData.totalTime);
       if (!recipeAPIData.cookTime && !recipeAPIData.totalTime) {
         cookTimeEl.text("Cook Time: N/A");
-      } else if (recipeAPIData.cookTime){
+      } else if (recipeAPIData.cookTime) {
         cookTimeEl.text("Cook Time: " + recipeAPIData.cookTime + " min");
+      } else {
+        cookTimeEl.text("Cook Time: " + recipeAPIData.totalTime + " min");
       }
-
-      else {cookTimeEl.text("Cook Time: " + recipeAPIData.totalTime + " min")}
-       if (!recipeAPIData.servingSize && !recipeAPIData.yield) {
+      if (!recipeAPIData.servingSize && !recipeAPIData.yield) {
         servingSizeEl.text("Serving Size: N/A");
-
       } else if (recipeAPIData.servingSize) {
         servingSizeEl.text("Serving Size: " + recipeAPIData.servingSize);
+      } else {
+        servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
       }
-      else {servingSizeEl.text("Serving Size: " + recipeAPIData.yield)};
       if (recipeAPIData.calories) {
         caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
       } else {
         caloriesEl.text("Calories: N/A");
       }
 
-      
       //append
       recipeDivEl.append(recipeNameEl);
       recipeDivEl.append(recipeImgEl);
@@ -248,7 +245,7 @@ $(function () {
 
           recipeDivEl.remove();
         });
-      } 
+      }
     } else {
       console.error("Recipe data is missing or invalid.");
       console.log("recipeData:", recipeData);
@@ -257,26 +254,24 @@ $(function () {
   }
 
   function loadSavedRecipes() {
-  
-  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-  recipeData = {
-    hits: savedRecipes.map(savedRecipe => ({ recipe: savedRecipe})),
-  };
-  for (let i = 0; i < savedRecipes.length; i++) {
-    createRecipeEl(savedRecipeDiv, i, false);
+    const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+    recipeData = {
+      hits: savedRecipes.map((savedRecipe) => ({ recipe: savedRecipe })),
+    };
+    for (let i = 0; i < savedRecipes.length; i++) {
+      createRecipeEl(savedRecipeDiv, i, false);
+    }
   }
-}
 
-function deleteSavedRecipe(index) {
-  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-  if (index >= 0 && index < savedRecipes.length) {
-    savedRecipes.splice(index, 1);
-    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+  function deleteSavedRecipe(index) {
+    const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+    if (index >= 0 && index < savedRecipes.length) {
+      savedRecipes.splice(index, 1);
+      localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+    }
   }
-}
 
-$(document).ready(function() {
-  loadSavedRecipes();
-})
-
+  $(document).ready(function () {
+    loadSavedRecipes();
+  });
 });
