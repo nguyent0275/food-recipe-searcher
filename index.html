@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link rel="stylesheet" href="./assets/css/reset.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>What's For Dinner (FOOD)</title>
@@ -27,16 +28,16 @@
           </li>
           <li class="instructions">
             <span>2</span>
-            Click "Add" to put them in your ingredients list.
+            <p>Click "Add" to put them in your ingredients list.</p>
           </li>
           <li class="instructions">
             <span>3</span>
-            Choose from our four health / dietary restriction filters.
+            <p>Choose from our four health / dietary restriction filters.</p>
           </li>
           <li class="instructions">
             <span>4</span>
-            Once you're done, click that "Search" button and you'll have a
-            list of recipes tailored to your ingredients and needs.
+            <p>Once you're done, click that "Search" button and you'll have a
+            list of recipes tailored to your ingredients and needs.</p>
           </li>
         </ul>
       </div>
@@ -67,6 +68,9 @@
         <div id="ingredients-div" class="column">
           <!--Below Search and Filters Div-->
           <h3 class="ingredientsHeader">My Ingredients</h3>
+          <p class="underlay">
+            <span class="material-symbols-outlined">grocery</span>
+          </p>
           <ul id="ingredient-list" class="foodList">
             <!-- <li> create <li> elements based on user input values and append to <ul> -->
           </ul>
@@ -74,11 +78,15 @@
 
         <div id="saved-recipe" class="column"> 
           <h3 class="recResults">My Saved Recipes</h3>
-       
+            <p class="underlay">
+              <span class="material-symbols-outlined ">cooking</span>
+            </p>
         </div>
         <div id="recipe-container" class="column">
           <h3 class="recResults">Try these amazing dishes!</h3>
-          
+          <p class="underlay">
+            <span class="material-symbols-outlined">menu_book</span>
+          </p>
         </div>
       </div>
     </div>

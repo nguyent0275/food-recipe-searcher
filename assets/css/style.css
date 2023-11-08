@@ -83,15 +83,18 @@ ol li {
   }
 
 .box ul li p {
-    background-color: yellow;
+    width: 100%;
+    margin-left: 10%;
+    padding-right: 15%;
 }
   
 .box ul li span {
+    float: left;
     width: 20px;
     height: 20px;
     text-align: center;
     line-height: 20px;
-    background: #25bcff;
+    background: #573D37;
     color: #fff;
     display: inline-block;
     border-radius: 50%;
@@ -199,6 +202,7 @@ li.ingredient-item {
 }
 
 .recipe {
+    z-index: 1;
     flex: 0 0 33%;
     justify-content: center;
     margin-bottom: 3%;
@@ -377,3 +381,23 @@ button#drinkSearchBtn {
 
 }
 
+.underlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    top: calc(50% - 12px);
+    left: calc(50% - 12px);
+}
+
+#saved-recipe {
+    position: relative;
+}
+
+#ingredients-div {
+    position: relative;
+}
+
+#recipe-container {
+    position: relative;
+}
