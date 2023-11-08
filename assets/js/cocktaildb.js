@@ -55,8 +55,7 @@ $(function () {
         drinkNameLink.attr("target", "_blank");
         drinkNameLink.text(drinkName);
         li.append(drinkNameLink);
-        // li.append(drinkName);
-        // cocktailListEl.append(li);
+       
 
         var p = $("<p>");
         p.text(drinkInstructions);
@@ -73,10 +72,10 @@ $(function () {
             thumbnail: drinkThumbnail,
         });
 
-        localStorage.setItem("pastCocktails", JSON.stringify(pastCocktails));
+        localStorage.setItem("#past-cocktails", JSON.stringify(pastCocktails));
         displayPastCocktails();
-
         });
+
         li.append(saveButton);
         cocktailListEl.append(li);
       }
@@ -87,7 +86,7 @@ $(function () {
     var pastCocktailsContainer = $("#past-cocktails");
     pastCocktailsContainer.empty();
 
-    for (var i = 0; i < pastCocktails.length; i++) {
+    for (var i = 0; i < 3; i++) {
       var pastCocktail = pastCocktails[i];
 
       var pastCocktailDiv = $("<div>");
@@ -101,29 +100,28 @@ $(function () {
       googleSearchLink.attr("target", "_blank");
       googleSearchLink.text(pastCocktail.name);
       pastCocktailName.append(googleSearchLink);
-      // pastCocktailName.text(pastCocktail.name);
-
-      // var pastCocktailThumbnail = $("<img>");
-      // pastCocktailThumbnail.attr({
-      //   alt: "",
-      //   src: pastCocktail.thumbnail,
-      // });
+    
 
       var pastCocktailInstructions = $("<p>");
       pastCocktailInstructions.text(pastCocktail.instructions);
 
       pastCocktailDiv.append(pastCocktailName);
-      // pastCocktailDiv.append(pastCocktailThumbnail);
       pastCocktailDiv.append(pastCocktailInstructions);
 
       pastCocktailsContainer.append(pastCocktailDiv);
     }
   }
-  var storedPastCocktails = localStorage.getItem("pastCocktails");
+  var storedPastCocktails = localStorage.getItem("#past-cocktails");
   if (storedPastCocktails) {
     pastCocktails = JSON.parse(storedPastCocktails);
     displayPastCocktails();
   }
+
+  $('#clearStorageBtn').click(function () {
+    pastCocktails = [];
+    localStorage.removeItem("#past-cocktails");
+    displayPastCocktails();
+  })
 
 });
 

@@ -72,16 +72,33 @@ $(function () {
     console.log(requestURL);
     return jsonData;
   }
+  // create modal for no user input
+  let errorModal = $("#error-modal");
+  let errorModalCloseBtn = $(".modal-close");
+  function closeModal() {
+    errorModal.removeClass("is-active")
+  }
+  function openModal() {
+    errorModal.addClass("is-active");
+    errorModal.children().on('click', closeModal)
+    errorModalCloseBtn.on("click", closeModal);
+    $(document).on('keydown', (event) => {
+      if (event.key === 'Escape'){
+        closeModal()
+      }
+    })
+  }
 
   // create click function that creates <li> elements based on user ingredients
   let ingredientList = $("#ingredient-list");
-  let modal = $('myModal')
   $("#add").on("click", renderIngredients);
   function renderIngredients(event) {
     event.preventDefault();
     let userIngredient = $("#user-ingredient")[0].value;
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
+      openModal()
+      return;
     }
     //create
     let ingredientItem = $("<li>");
@@ -122,9 +139,11 @@ $(function () {
     const value = $(this).attr("value");
     saveRecipe(value);
   });
-// this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
+  // this.attr(value) is passed to saveRecipe function and saved under saveRecipeItemPosition parameter (this is the value in save-btn html 0-8)
+  let recipeLocalName = JSON.parse(localStorage.getItem("recipeName"));
+  console.log(recipeLocalName);
   function saveRecipe(saveRecipeItemPosition) {
-    console.log(saveRecipeItemPosition)
+    console.log(saveRecipeItemPosition);
     // checking if all those fields return true (not undefined)
     if (
       recipeData &&
@@ -171,36 +190,36 @@ $(function () {
       recipeImgEl.addClass("recipe-img");
       recipeNameEl.addClass("recipe-name");
       recipeInfoEl.addClass("recipe-info");
-      // setting text and attributes
-      if (
-        recipeAPIData.images &&
-        recipeAPIData.images.SMALL &&
-        recipeAPIData.url
-      ) {
-        recipeImgEl.attr("src", recipeAPIData.images.SMALL.url);
-        recipeURL.attr("href", recipeAPIData.url);
-        recipeURL.text(recipeAPIData.label);
+     
+      {
+        recipeImgEl.attr("src", recipeAPIData.image);
+        recipeURL.attr("href", recipeAPIData.url || recipeAPIData.uri);
+        recipeURL.text(recipeAPIData.name || recipeAPIData.label);
       }
 
-      let cookTimeNumber = recipeAPIData.totalTime;
-      if (cookTimeNumber === 0) {
+      let cookTimeNumber = recipeAPIData.cookTime;
+      console.log(recipeAPIData.totalTime);
+      if (!recipeAPIData.cookTime && !recipeAPIData.totalTime) {
         cookTimeEl.text("Cook Time: N/A");
-      } else {
-        cookTimeEl.text("Cook Time: " + cookTimeNumber + " min");
+      } else if (recipeAPIData.cookTime){
+        cookTimeEl.text("Cook Time: " + recipeAPIData.cookTime + " min");
       }
 
-      if (recipeAPIData.yield) {
-        servingSizeEl.text("Serving Size: " + recipeAPIData.yield);
-      } else {
+      else {cookTimeEl.text("Cook Time: " + recipeAPIData.totalTime + " min")}
+       if (!recipeAPIData.servingSize && !recipeAPIData.yield) {
         servingSizeEl.text("Serving Size: N/A");
-      }
 
+      } else if (recipeAPIData.servingSize) {
+        servingSizeEl.text("Serving Size: " + recipeAPIData.servingSize);
+      }
+      else {servingSizeEl.text("Serving Size: " + recipeAPIData.yield)};
       if (recipeAPIData.calories) {
         caloriesEl.text("Calories: " + Math.round(recipeAPIData.calories));
       } else {
         caloriesEl.text("Calories: N/A");
       }
 
+      
       //append
       recipeDivEl.append(recipeNameEl);
       recipeDivEl.append(recipeImgEl);
@@ -217,17 +236,19 @@ $(function () {
         saveRecipeBtn.attr({ value: i });
         saveRecipeBtn.text("Save");
         recipeDivEl.append(saveRecipeBtn);
-      } 
-      else {
+      } else {
         let removeRecipeBtn = $("<button>");
         removeRecipeBtn.addClass("delete-btn");
         removeRecipeBtn.attr({ value: i });
         removeRecipeBtn.text("Delete");
         recipeDivEl.append(removeRecipeBtn);
         removeRecipeBtn.click(() => {
+          const index = removeRecipeBtn.attr("value");
+          deleteSavedRecipe(index);
+
           recipeDivEl.remove();
         });
-      }
+      } 
     } else {
       console.error("Recipe data is missing or invalid.");
       console.log("recipeData:", recipeData);
@@ -235,9 +256,27 @@ $(function () {
     }
   }
 
+  function loadSavedRecipes() {
+  
   const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+  recipeData = {
+    hits: savedRecipes.map(savedRecipe => ({ recipe: savedRecipe})),
+  };
   for (let i = 0; i < savedRecipes.length; i++) {
     createRecipeEl(savedRecipeDiv, i, false);
   }
+}
+
+function deleteSavedRecipe(index) {
+  const savedRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+  if (index >= 0 && index < savedRecipes.length) {
+    savedRecipes.splice(index, 1);
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes));
+  }
+}
+
+$(document).ready(function() {
+  loadSavedRecipes();
+})
 
 });
