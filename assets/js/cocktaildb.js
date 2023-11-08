@@ -73,7 +73,7 @@ $(function () {
             thumbnail: savedThumbnail,
         });
 
-        localStorage.setItem("#past-cocktails", JSON.stringify(pastCocktails));
+        localStorage.setItem("pastCocktails", JSON.stringify(pastCocktails));
         displayPastCocktails();
         });
 
@@ -85,6 +85,7 @@ $(function () {
 
   function displayPastCocktails() {
     var pastCocktailsContainer = $("#past-cocktails");
+    var clearStorageBtn = $("#clearStorageBtn");
     pastCocktailsContainer.empty();
 
     for (var i = 0; i < 3; i++) {
@@ -127,11 +128,13 @@ $(function () {
       pastCocktailsContainer.append(pastCocktailDiv);
     }
   }
-  var storedPastCocktails = localStorage.getItem("#past-cocktails");
+  var storedPastCocktails = localStorage.getItem("pastCocktails");
   if (storedPastCocktails) {
     pastCocktails = JSON.parse(storedPastCocktails);
     displayPastCocktails();
   }
+
+
 
   $('#clearStorageBtn').click(function () {
     pastCocktails = [];
