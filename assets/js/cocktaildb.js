@@ -64,12 +64,13 @@ $(function () {
         var saveButton = $('<button>');
         saveButton.text('Save');
         saveButton.addClass('drinkSave')
-        saveButton.click({cocktail: drink}, function(event) {
+        saveButton.click({cocktail: drink, thumbnail:drinkThumbnail}, function(event) {
           var cocktailToSave = event.data.cocktail;
+          var savedThumbnail = event.data.thumbnail;
           pastCocktails.push({
             name: cocktailToSave.strDrink,
             instructions: drinkInstructions,
-            thumbnail: drinkThumbnail,
+            thumbnail: savedThumbnail,
         });
 
         localStorage.setItem("#past-cocktails", JSON.stringify(pastCocktails));
@@ -100,13 +101,28 @@ $(function () {
       googleSearchLink.attr("target", "_blank");
       googleSearchLink.text(pastCocktail.name);
       pastCocktailName.append(googleSearchLink);
+
+      var pastCocktailImage = $("<img>");
+      pastCocktailImage.attr("src", pastCocktail.thumbnail);
+      pastCocktailImage.attr("alt", pastCocktail.name);
+
     
 
       var pastCocktailInstructions = $("<p>");
       pastCocktailInstructions.text(pastCocktail.instructions);
 
+      var clearButton = $("<button>");
+      clearButton.text("remove");
+      (function(index){
+      clearButton.click(function() {
+        removePastCocktail(index);
+      });
+    })(i);
+
+      pastCocktailDiv.append(pastCocktailImage);
       pastCocktailDiv.append(pastCocktailName);
       pastCocktailDiv.append(pastCocktailInstructions);
+      pastCocktailDiv.append(clearButton);
 
       pastCocktailsContainer.append(pastCocktailDiv);
     }
@@ -123,28 +139,10 @@ $(function () {
     displayPastCocktails();
   })
 
+  function removePastCocktail(index) {
+    pastCocktails.splice(index, 1);
+    localStorage.setItem("#past-cocktails", JSON.stringify (pastCocktails));
+    displayPastCocktails();
+  }
 });
 
-function reposFetch(url) {
-  var cocktailListEl = $("#cocktail-list");
-
-  $.get(url, function (data) {
-    console.log(data);
-
-    for (var i = 0; i < data.length; i++) {
-      console.log(data[i].name);
-
-      var name = data[i].name;
-
-      var pEl = $("<p>");
-
-      pEl.text(name);
-
-      cocktailListEl.append(pEl);
-    }
-  });
-}
-
-var userName = "";
-
-reposFetchFetch(userName);
