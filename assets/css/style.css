@@ -21,29 +21,55 @@ header {
     font-size: 300%;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+
 }
 
 header > h1 {
     flex: auto;
+    flex-basis: 60%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+header > nav {
+    flex: auto;
+    flex-basis: 30%;
 }
 
 .navBtn {
-    flex: 50%;
-    background-color: bisque;
-    color: white;
-    padding: 2%;
-    border-radius: 10px;
-    font-size: 80%;
+    margin: 10% 0 10% 50%;
+    box-shadow: 10px 10px 8px #888888;
+    border: 3px solid #3D8169;    
+}
+
+.navBtn:hover {
+    margin: 10% 0 10% 50%;
+    box-shadow: 10px 10px 8px #888888;
+    border: 3px solid #573D37;    
 }
 
 .column {
     /* border: 1px solid black; */
-    padding: 2%;
+    padding: 2% 2%;
 }
 
 h1 {
     font-weight: bolder;
+    /* font-size: 125%; */
+    font-size: 5vw;
+}
+h2 {
+    font-size: 100%;
+    font-weight: bold;
+    padding: 2% 0;
+}
+
+.drinkH2 {
     font-size: 125%;
+    font-weight: bolder;
+    color: #573D37;
 }
 
 h3 {
@@ -61,14 +87,6 @@ a:hover {
     color: #964C3B;
 }
 
-/* ol {
-    padding-left: 15px;
-}
-
-ol li {
-    text-indent: -1em;
-    
-} */
 .box {
     margin-top: 2%;
     margin-left: 1%;
@@ -99,6 +117,7 @@ ol li {
     display: inline-block;
     border-radius: 50%;
     margin-right: 10px;
+    margin-top: 3%;
     font-size: 12px;
     font-weight: 600;
     transform: translateY(-2px);
@@ -227,7 +246,7 @@ text-align: center;
 }
 
 
-.instructions {
+li.instructions {
     display: list-item;
     list-style-position: inside;
     margin-top: 5%;
@@ -282,6 +301,7 @@ ul#cocktail-list > p{
 }
 
 .drnkResults {
+    z-index: 1;
     display: flex;
     flex-direction: column;
     flex-basis: 28%;
@@ -308,6 +328,7 @@ button.drinkSave {
 
 .drnkNm {
     display: block;
+    margin: 2% 0;
 }
 
 button#drinkSearchBtn {
@@ -326,20 +347,26 @@ button#drinkSearchBtn {
     height: auto;
 }
 
+#past-cocktails {
+  
+    padding-top: 4%;
+}
+
 #past-cocktails img {
-    width: 100%;
-    max-width: 100%;
+    width: 75%;
+    max-width: 75%;
     height: auto;    
     border: black 5px solid;
     border-radius: 10px;
 }
 
 #cocktail-list li {
-    font-size: 24px;
+    font-size: 16px;
+    text-align: center;
 }
 
 button.save-btn {
-    margin: 2% 42%;
+    margin: 2% 40%;
     color: white;
     padding: 2% 5%;
     background-color: #573D37;
@@ -348,7 +375,7 @@ button.save-btn {
 }
 
 button.delete-btn {
-    margin: 2% 42%;
+    margin: 2% 37%;
     color: white;
     padding: 2% 5%;
     background-color: #573D37;
@@ -411,4 +438,20 @@ button#drinkSearchBtn {
 
 #recipe-container {
     position: relative;
+}
+
+#cocktail-div {
+    position: relative;
+}
+
+#past-cocktails > button {
+    background-color:#573D37
+}
+
+.clrBtn {
+    background-color:#573D37;
+    padding: 2% 4%;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
 }

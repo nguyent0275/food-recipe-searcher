@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Search for a Cocktail</title>
@@ -10,10 +11,12 @@
   <body>
     <div class="container">
       <header>
-        <h1>What are we drinking?</h1>
+        <h1>What are we drinking ?</h1>
         <nav>
-            <button class="navBtn"><a href="./index.html">Dinner</a></button>
-          </nav>
+          <button class="navBtn button is-large is-responsive is-rounded">
+            <a href="./index.html">Dinner</a>
+          </button>
+        </nav>
       </header>
       <div class="columns">
         <div class="column is-one-quarter" id="past-cocktails">
@@ -24,7 +27,7 @@
           <!--This is the part of the page that shows search results-->
           <div class="columns cocktailSearch">
             <div id="cocktail">
-              <h1>Cocktails with Dinner</h1>
+              <h2 class="drinkH2">Cocktails with Dinner</h2>
               <p>Search type of alcohol and get a fun cocktail</p>
               <form>
                 <input
@@ -38,7 +41,10 @@
           </div>
 
           <div id="cocktail-div" class="columns cktResultsContainer is-multiline">
-            <h3 class="recResults column is-full">Try thes refreshing beverages!</h3>
+            <h3 class="recResults column is-full">Try these refreshing beverages!</h3>
+            <p class="underlay">
+              <span class="material-symbols-outlined ">local_bar</span>
+            </p>
             <div class="column is-full">
               <ul id="cocktail-list">
                 <!-- <li> create <li> elements based on user input values and append to <ul> -->
@@ -50,12 +56,14 @@
     </div>
 
     <!-- SAVED RECIPES FIELD (MAX OF 5) -->
+   
     <div id="saved-cocktail-container">
       <!-- uses javascript to create a <div> for recipe name / <img> for recipe picture / add an <a> to image to link to website -->
     </div>
 
     <!-- RECIPE RETURN FIELD -->
     <div id="cocktail-container">
+     
       <!-- <h1># of cocktails</h1> -->
     </div>
 

@@ -112,7 +112,8 @@ $(function () {
       pastCocktailInstructions.text(pastCocktail.instructions);
 
       var clearButton = $("<button>");
-      clearButton.text("remove");
+      clearButton.text("Remove");
+      clearButton.addClass('clrBtn');
       (function(index){
       clearButton.click(function() {
         removePastCocktail(index);
