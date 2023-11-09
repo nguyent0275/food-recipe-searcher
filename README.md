@@ -17,8 +17,8 @@ relaxing drink and a delicious dinner that you deserve.
 https://nguyent0275.github.io/whats-for-dinner/
 
 ## Image
-![Image of the Dinner Page]()
-![Image of the Drinks Page]()
+![Image of the Dinner Page](./assets/images/whats-for-dinner-dinnerpage.png)
+![Image of the Drinks Page](./assets/images/whats-for-dinner-drinkspage.png)
 
 ## Features
 - Extensive Library of Recipes: With over millions of recipes from thousands of websites, you'll never be hungry.
