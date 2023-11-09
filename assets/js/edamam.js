@@ -96,6 +96,7 @@ $(function () {
     let userIngredientEl = $("#user-ingredient")[0];
     if (userIngredient === "") {
       openModal();
+      $("#modal-text").text("Please add an ingredient");
       return;
     }
     //create
